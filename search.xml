@@ -1,6 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>4.Largest palindrome product</title>
+    <url>/2020/02/11/4-Largest-palindrome-product/</url>
+    <content><![CDATA[<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is $9009 = 91 × 99$.</p>
+<p>Find the largest palindrome made from the product of two 3-digit numbers.</p>
+<a id="more"></a>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>1.</p>
+<p>题意就是让你找一个最大回文数 ，是由两个三位数乘积可得到的。</p>
+<p>（这编程题嘛~）</p>
+<p>我们这里采用了两个函数,一个是$itoa$函数， 另一个是$strrev$，两个都是非标准$C/C++$库中的函数。</p>
+<ul>
+<li><p>$itoa$：一个把整数转换成为字符串的函数。</p>
+<p>在头文件$cstdlib$中 用法如下：</p>
+<script type="math/tex; mode=display">
+char *itoa (int value, char *str, int base )\\
+返回一个转换后的字符串指针\\
+value:要被转换的整数\\
+str:转换后的字符串\\
+base:转换的进制数</script></li>
+<li><p>$strrev$：将字符串中的字符按照逆序进行反转。</p>
+<p>在头文件$cstring$中，用法如下：</p>
+<script type="math/tex; mode=display">
+char *strrev(char *s)\\
+返回逆转后的字符串指针\\
+s:要逆序的字符串</script></li>
+</ul>
+<p><strong>注意</strong>：此处判断的时候 一定要遍历字符串判断 不然会出现$5675-&gt;5765$这种情况 ！</p>
+<p>这样我们从999开始 对$i j$ 进行$i * j$判断是不是回文数，如果是最大的，输出即可</p>
+<p>（我们这里用两个参数$ans$和$solve$保存一下，其中需要记录当前最大的回文数） </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//10000--998001</span></span><br><span class="line"><span class="keyword">int</span> ans, solve = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">is_palindrome_number</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> temp[<span class="number">10</span>], str[<span class="number">10</span>];</span><br><span class="line">    itoa(x, str, <span class="number">10</span>);</span><br><span class="line">    itoa(x, temp, <span class="number">10</span>);</span><br><span class="line">    strrev(temp);</span><br><span class="line">    <span class="comment">//cout &lt;&lt; temp &lt;&lt; endl &lt;&lt; str &lt;&lt; endl;</span></span><br><span class="line">    <span class="keyword">int</span> len = <span class="built_in">strlen</span>(str);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(temp[i] != str[i])</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">999</span>; i &gt;= <span class="number">100</span>; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">999</span>; j &gt;= <span class="number">100</span>; j--)</span><br><span class="line">        &#123;</span><br><span class="line">            ans = i * j;</span><br><span class="line">            <span class="keyword">if</span>(is_palindrome_number(ans) &amp;&amp; ans &gt; solve)</span><br><span class="line">            &#123;</span><br><span class="line">                solve = ans;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; solve &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.</p>
+<p>数学方法就是用取模去判断三位数是不是一样的</p>
+<p>可参考:<a href="https://www.cnblogs.com/zhouyinhui/archive/2011/01/14/1935824.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhouyinhui/archive/2011/01/14/1935824.html</a></p>
+<h3 id="正确答案"><a href="#正确答案" class="headerlink" title="正确答案"></a>正确答案</h3><script type="math/tex; mode=display">
+Answer:906609</script><h3 id="官方解答"><a href="#官方解答" class="headerlink" title="官方解答"></a>官方解答</h3>   <div class="pdf" target="answer.pdf" height></div>]]></content>
+      <categories>
+        <category>Project Euler</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Palindromic Number</tag>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>3.Largest prime factor</title>
+    <url>/2020/02/10/3-Largest-prime-factor/</url>
+    <content><![CDATA[<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>The prime factors of $13195$ are $5$,$7$,$13$ and $29$.</p>
+<p>What is the largest prime factor of the number $600851475143$?</p>
+<a id="more"></a>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><ol>
+<li><p>题意是找到$600851475143$的最大质因子</p>
+<p>例如 ：45可以分解成</p>
+<script type="math/tex; mode=display">
+45 = 3 * 3 * 5</script><p>它的质因子就是3，5  即45的最大质因子就是5</p>
+<p>我们可以将其表示为该过程:</p>
+<ul>
+<li><p>遍历自然数(从$2$开始)，若$n$能够被$k$整除，则重复整除它，直到不能除尽为止。</p>
+<p>然后再用$k + 1$ 重复上述操作</p>
+</li>
+</ul>
+<p>例如：$45$除以$2$整除不了 则$45$ 除以$3$ 得到$15$ $15$ 再除以$3$得到$5$，$5$除以$4$无法整除，则$5$除以$5$得到$1$ 则循环结束。 </p>
+</li>
+</ol>
+   <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//！long long表示 int会溢出</span></span><br><span class="line"><span class="keyword">const</span> ll ans = <span class="number">600851475143</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(ll n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll factor = <span class="number">2</span>;<span class="comment">//从2开始除嘛~</span></span><br><span class="line">    <span class="keyword">while</span>(n &gt; <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(n % factor == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>, factor);<span class="comment">//选取最后一个即可</span></span><br><span class="line">            n /= factor;</span><br><span class="line">        &#125;</span><br><span class="line">        factor++;</span><br><span class="line">        <span class="comment">//此处可以优化为:factor += (factor == 2 ? 1 : 2)</span></span><br><span class="line">        <span class="comment">//因为素数除了2之外都是奇数</span></span><br><span class="line">        <span class="comment">//也就是从2 -&gt; 3 时加1 其余时候都加2</span></span><br><span class="line">        <span class="comment">//补充:当factor的平方大于n时，必定只有n这一个因子。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    solve(ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>数学解法：</p>
+<p>我们可以考虑一个定理：</p>
+<p><strong>算数基本定理：</strong></p>
+<script type="math/tex; mode=display">
+任何一个大于1的自然数N，如果N不为质数，那么N可以唯一分解成有限个质数的乘积\\
+即：N = P_1 * P_2 *P_3 ......*P_n  (其中P_1 < P_2<P_3 ......<P_n)</script><p>根据题意我们可以知道我们要计算的就是$P_n$</p>
+<p>我们首先找到 对于N来说的一个最小质数因子 即$P_1$，然后我们再对于$N$来说，去除$P_1$,依次往下。最后当$P_x = P_n$时，得到的$P_x$ 就是最大的质因子。 </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//1e8 不能采用素数筛</span></span><br><span class="line"><span class="keyword">const</span> ll ANS = <span class="number">600851475143</span>;</span><br><span class="line"><span class="function">ll <span class="title">isprime</span><span class="params">(ll x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(ll i = <span class="number">2</span>; ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(x % i == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    ll prime_number = ANS;</span><br><span class="line">    ll min_prime_number = isprime(prime_number);</span><br><span class="line">    <span class="keyword">while</span>(min_prime_number != prime_number)</span><br><span class="line">    &#123;</span><br><span class="line">        prime_number /= min_prime_number;</span><br><span class="line">        min_prime_number = isprime(prime_number);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; prime_number &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3></li>
+<li><p>不可以采用素数筛 会超时。</p>
+</li>
+<li>以下代码从3开始  某种程度来说 不够严谨 但求的时$P_n$故可得到正确结果。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//1e8 不能采用素数筛</span></span><br><span class="line"><span class="keyword">const</span> ll ANS = <span class="number">600851475143</span>;</span><br><span class="line"><span class="function">ll <span class="title">isprime</span><span class="params">(ll x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(ll i = <span class="number">3</span>; ; i += <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(x % i == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    ll prime_number = ANS;</span><br><span class="line">    ll min_prime_number = isprime(prime_number);</span><br><span class="line">    <span class="keyword">while</span>(min_prime_number != prime_number)</span><br><span class="line">    &#123;</span><br><span class="line">        prime_number /= min_prime_number;</span><br><span class="line">        min_prime_number = isprime(prime_number);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; prime_number &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="正确答案"><a href="#正确答案" class="headerlink" title="正确答案"></a>正确答案</h3><script type="math/tex; mode=display">
+Answer:6857</script><h3 id="官方解答"><a href="#官方解答" class="headerlink" title="官方解答"></a>官方解答</h3>   <div class="pdf" target="answer.pdf" height></div>]]></content>
+      <categories>
+        <category>Project Euler</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Rhythmical</tag>
+        <tag>Prime Number</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2.Even Fibonacci numbers</title>
+    <url>/2020/02/10/2-Even-Fibonacci-numbers/</url>
+    <content><![CDATA[<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>Each new term in the Fibonacci sequence is generated by adding the previous two terms. By starting with 1 and 2, the first 10 terms will be:</p>
+<script type="math/tex; mode=display">
+1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...</script><p>By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.</p>
+<a id="more"></a>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><ol>
+<li><p>一开始想的是我们可以直接写出对于前400万项的Fibonacci数列。</p>
+<p>然后判断每一项是否是偶数 再<strong>sum</strong>一下。 </p>
+<script type="math/tex; mode=display">
+Fibonacci(n) = Fibonacci(n- 1) + Fibonacci(n - 2)</script><p>时间复杂度：${O(2n)}$  </p>
+<p>不过可以采用乘方优化达到${O(\log n + n)}$ 的复杂度</p>
+<p>可参考：<a href="https://www.cnblogs.com/AlvinZH/p/7637094.html" target="_blank" rel="noopener">https://www.cnblogs.com/AlvinZH/p/7637094.html</a></p>
+<p><strong>BUT</strong> ：这种做法在400w情况下仍然爆了。</p>
+</li>
+</ol>
+   <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">  <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">4000000</span>;</span><br><span class="line">ll Fibonacci[maxn];</span><br><span class="line"><span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    Fibonacci[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    Fibonacci[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= maxn; i++)</span><br><span class="line">        Fibonacci[i] = Fibonacci[i - <span class="number">1</span>] + Fibonacci[i - <span class="number">2</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= maxn; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(Fibonacci[i] % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">            ans += Fibonacci[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>数学解法：</p>
+<p>我们观察到 ，题目中只是让求出Fibonacci数列的偶数项之和，我们能否找到一个关于Fibonacci数列偶数项前${n}$项和的递推公式~</p>
+<p>观察题目中给的Fibonacci偶数项有：</p>
+<script type="math/tex; mode=display">
+2，5，8，34，144，610   ...</script><p>从第三项开始有：</p>
+<script type="math/tex; mode=display">
+34 = 4*8+2;\\
+144 = 4*34 + 8;\\
+610 = 4*144+ 34 ;</script><p>所以有以下公式(对Fibonacci偶数数列)：</p>
+<script type="math/tex; mode=display">
+Fibonacci_e(n) = Fibonacci_e(n - 1) * 4 +Fibonacci_e(n - 2)</script><p>时间复杂度：${O(\frac{n}{2})}$[减少了一半的运算量]</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line">   <span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line">   <span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line">   <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">4000000</span>;</span><br><span class="line">   ll Fibonacci[maxn];</span><br><span class="line">   <span class="keyword">int</span> ans;</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       IOS</span><br><span class="line">       Fibonacci[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">       Fibonacci[<span class="number">2</span>] = <span class="number">8</span>;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= maxn; i++)</span><br><span class="line">           &#123;</span><br><span class="line">               Fibonacci[i] = <span class="number">4</span> * Fibonacci[i - <span class="number">1</span>] + Fibonacci[i - <span class="number">2</span>];</span><br><span class="line">               <span class="keyword">if</span>(Fibonacci[i] &lt; maxn)</span><br><span class="line">                   ans += Fibonacci[i];</span><br><span class="line">               <span class="keyword">else</span></span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">       <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ol>
+<li><p>判断偶数和！不是偶数个数！一开始写出SB代码…WA了</p>
+<p>读题意！！！</p>
+</li>
+</ol>
+<h3 id="正确答案"><a href="#正确答案" class="headerlink" title="正确答案"></a>正确答案</h3></li>
+</ol>
+<script type="math/tex; mode=display">
+   Answer:4613732</script><h3 id="官方解答"><a href="#官方解答" class="headerlink" title="官方解答"></a>官方解答</h3>   <div class="pdf" target="answer.pdf" height></div>
+]]></content>
+      <categories>
+        <category>Project Euler</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Rhythmical</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1.Multiples of 3 and 5</title>
+    <url>/2020/02/09/1-Multiples-of-3-and-5/</url>
+    <content><![CDATA[<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.</p>
+<p>Find the sum of all the multiples of 3 or 5 below 1000.</p>
+<a id="more"></a>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><ol>
+<li><p>暴力解法：</p>
+<p>遍历从1 - 1000 判断一下每一个数字是不是3/5的倍数 如果是的话 就sum一下 。</p>
+<p>时间复杂度：${O(n)}$</p>
+</li>
+</ol>
+   <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> sum;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">1000</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(i % <span class="number">3</span> == <span class="number">0</span> || i % <span class="number">5</span> == <span class="number">0</span>)</span><br><span class="line">            sum += i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; sum &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>数学解法：</p>
+<p>（对于1 - 20）</p>
+<p>观察对于3的倍数有：3 5 9 12 15 18</p>
+<p>​        对于5的倍数有:    5 15 20</p>
+<p><strong>！！！发现了什么！！！   盲生你发现了华点</strong></p>
+<ul>
+<li>对3来说：是以3为首项3为等差的等差数列</li>
+<li>对5来说：是以5为首项5为等差的等差数列</li>
+<li>我们再去掉以15为首项15为等差的等差数列(因为计算了两遍~)</li>
+</ul>
+<p>我们设要求的和为$F$，n为等差数列的和为$sum(n)$<br>有以下公式：</p>
+<script type="math/tex; mode=display">
+F = sum(3) + sum(5) - sum(15)</script><p>等差数列求和公式有：$sum(n) =\frac {n  *  (n+1)} {2} $</p>
+<p>时间复杂度：${O(1)}$</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> ll maxn = <span class="number">1000</span> - <span class="number">1</span>;<span class="comment">//不是1000 是999</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp = maxn / x;</span><br><span class="line">    <span class="keyword">int</span> a1 = x;</span><br><span class="line">    <span class="keyword">int</span> an = a1 + (temp - <span class="number">1</span>) * x;</span><br><span class="line">    <span class="keyword">return</span> (a1 + an) * temp / <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; sum(<span class="number">3</span>) + sum(<span class="number">5</span>) - sum(<span class="number">15</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ol>
+<li>边界取值取不到1000 所以计算的时候要999 否则要在得出的结果- 1000。</li>
+</ol>
+<h3 id="正确答案"><a href="#正确答案" class="headerlink" title="正确答案"></a>正确答案</h3><script type="math/tex; mode=display">
+Answer:233168</script><h3 id="官方解答"><a href="#官方解答" class="headerlink" title="官方解答"></a>官方解答</h3><div class="pdf" target="answer.pdf" height></div>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Project Euler</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+        <tag>Sequence of number</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Build a blog</title>
     <url>/2020/02/06/Build-a-blog/</url>
     <content><![CDATA[<h3 id="这里展示的主要是一些在blog搭建初期的遇到问题以及解决措施"><a href="#这里展示的主要是一些在blog搭建初期的遇到问题以及解决措施" class="headerlink" title="这里展示的主要是一些在blog搭建初期的遇到问题以及解决措施"></a>这里展示的主要是一些在blog搭建初期的遇到问题以及解决措施</h3><p>我使用的是hexo的blog框架</p>
