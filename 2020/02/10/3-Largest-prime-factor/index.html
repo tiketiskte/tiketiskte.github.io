@@ -53,11 +53,10 @@
 <meta property="og:site_name" content="tiketiskte&#39;s blog">
 <meta property="og:description" content="问题描述The prime factors of $13195$ are $5$,$7$,$13$ and $29$. What is the largest prime factor of the number $600851475143$?">
 <meta property="article:published_time" content="2020-02-10T14:06:12.000Z">
-<meta property="article:modified_time" content="2020-02-11T08:30:47.970Z">
+<meta property="article:modified_time" content="2020-02-12T11:12:30.616Z">
 <meta property="article:author" content="tiketiskte">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Rhythmical">
-<meta property="article:tag" content="Prime Number">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/02/10/3-Largest-prime-factor/">
@@ -148,7 +147,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">12</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">9</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -158,7 +157,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">13</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">14</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -241,7 +240,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-11 16:30:47" itemprop="dateModified" datetime="2020-02-11T16:30:47+08:00">2020-02-11</time>
+                <time title="Modified: 2020-02-12 19:12:30" itemprop="dateModified" datetime="2020-02-12T19:12:30+08:00">2020-02-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -306,13 +305,10 @@
 任何一个大于1的自然数N，如果N不为质数，那么N可以唯一分解成有限个质数的乘积\\
 即：N = P_1 * P_2 *P_3 ......*P_n  (其中P_1 < P_2<P_3 ......<P_n)</script><p>根据题意我们可以知道我们要计算的就是$P_n$</p>
 <p>我们首先找到 对于N来说的一个最小质数因子 即$P_1$，然后我们再对于$N$来说，去除$P_1$,依次往下。最后当$P_x = P_n$时，得到的$P_x$ 就是最大的质因子。 </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//1e8 不能采用素数筛</span></span><br><span class="line"><span class="keyword">const</span> ll ANS = <span class="number">600851475143</span>;</span><br><span class="line"><span class="function">ll <span class="title">isprime</span><span class="params">(ll x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(ll i = <span class="number">2</span>; ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(x % i == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    ll prime_number = ANS;</span><br><span class="line">    ll min_prime_number = isprime(prime_number);</span><br><span class="line">    <span class="keyword">while</span>(min_prime_number != prime_number)</span><br><span class="line">    &#123;</span><br><span class="line">        prime_number /= min_prime_number;</span><br><span class="line">        min_prime_number = isprime(prime_number);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; prime_number &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3></li>
-<li><p>不可以采用素数筛 会超时。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br></pre></td></tr></table></figure>
 </li>
-<li>以下代码从3开始  某种程度来说 不够严谨 但求的时$P_n$故可得到正确结果。</li>
 </ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//1e8 不能采用素数筛</span></span><br><span class="line"><span class="keyword">const</span> ll ANS = <span class="number">600851475143</span>;</span><br><span class="line"><span class="function">ll <span class="title">isprime</span><span class="params">(ll x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(ll i = <span class="number">3</span>; ; i += <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(x % i == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    ll prime_number = ANS;</span><br><span class="line">    ll min_prime_number = isprime(prime_number);</span><br><span class="line">    <span class="keyword">while</span>(min_prime_number != prime_number)</span><br><span class="line">    &#123;</span><br><span class="line">        prime_number /= min_prime_number;</span><br><span class="line">        min_prime_number = isprime(prime_number);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; prime_number &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>//1e8 不能采用素数筛<br>const ll ANS = 600851475143;<br>ll isprime(ll x)<br>{<br>    for(ll i = 2; ; i++)<br>    {<br>        if(x % i == 0)<br>            return i;<br>    }<br>}<br>int main(void)<br>{<br>    IOS<br>    ll prime_number = ANS;<br>    ll min_prime_number = isprime(prime_number);<br>    while(min_prime_number != prime_number)<br>    {<br>        prime_number /= min_prime_number;<br>        min_prime_number = isprime(prime_number);<br>    }<br>    cout &lt;&lt; prime_number &lt;&lt; endl;<br>    return 0;<br>}<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   ### 注意点</span><br><span class="line"></span><br><span class="line">1. 不可以采用素数筛 会超时。</span><br><span class="line">2. 以下代码从3开始  某种程度来说 不够严谨 但求的时$P_n$故可得到正确结果。</span><br><span class="line"></span><br><span class="line">​&#96;&#96;&#96;C++</span><br><span class="line">#include &lt;bits&#x2F;stdc++.h&gt;</span><br><span class="line">#define ll long long</span><br><span class="line">#define IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;1e8 不能采用素数筛</span><br><span class="line">const ll ANS &#x3D; 600851475143;</span><br><span class="line">ll isprime(ll x)</span><br><span class="line">&#123;</span><br><span class="line">    for(ll i &#x3D; 3; ; i +&#x3D; 2)</span><br><span class="line">    &#123;</span><br><span class="line">        if(x % i &#x3D;&#x3D; 0)</span><br><span class="line">            return i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    IOS</span><br><span class="line">    ll prime_number &#x3D; ANS;</span><br><span class="line">    ll min_prime_number &#x3D; isprime(prime_number);</span><br><span class="line">    while(min_prime_number !&#x3D; prime_number)</span><br><span class="line">    &#123;</span><br><span class="line">        prime_number &#x2F;&#x3D; min_prime_number;</span><br><span class="line">        min_prime_number &#x3D; isprime(prime_number);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; prime_number &lt;&lt; endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="正确答案"><a href="#正确答案" class="headerlink" title="正确答案"></a>正确答案</h3><script type="math/tex; mode=display">
 Answer:6857</script><h3 id="官方解答"><a href="#官方解答" class="headerlink" title="官方解答"></a>官方解答</h3>   <div class="pdf" target="answer.pdf" height></div>
     </div>
@@ -346,7 +342,6 @@ Answer:6857</script><h3 id="官方解答"><a href="#官方解答" class="headerl
           <div class="post-tags">
               <a href="/tags/Math/" rel="tag"><i class="fa fa-tag"></i> Math</a>
               <a href="/tags/Rhythmical/" rel="tag"><i class="fa fa-tag"></i> Rhythmical</a>
-              <a href="/tags/Prime-Number/" rel="tag"><i class="fa fa-tag"></i> Prime Number</a>
           </div>
 
         
@@ -422,7 +417,7 @@ Answer:6857</script><h3 id="官方解答"><a href="#官方解答" class="headerl
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法"><span class="nav-number">2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意点"><span class="nav-number">3.</span> <span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正确答案"><span class="nav-number">4.</span> <span class="nav-text">正确答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#官方解答"><span class="nav-number">5.</span> <span class="nav-text">官方解答</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法"><span class="nav-number">2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正确答案"><span class="nav-number">3.</span> <span class="nav-text">正确答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#官方解答"><span class="nav-number">4.</span> <span class="nav-text">官方解答</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -438,7 +433,7 @@ Answer:6857</script><h3 id="官方解答"><a href="#官方解答" class="headerl
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -451,7 +446,7 @@ Answer:6857</script><h3 id="官方解答"><a href="#官方解答" class="headerl
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

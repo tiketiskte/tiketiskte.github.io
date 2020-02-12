@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>5.Smallest multiple</title>
+    <url>/2020/02/12/5-Smallest-multiple/</url>
+    <content><![CDATA[<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><a id="more"></a>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><ol>
+<li><p>时间复杂度：${O()}$</p>
+</li>
+</ol>
+   <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol>
+<li>数学解法：</li>
+</ol>
+<p>   时间复杂度：${O()}$</p>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ol>
+<li><h3 id="正确答案"><a href="#正确答案" class="headerlink" title="正确答案"></a>正确答案</h3><script type="math/tex; mode=display">
+Answer:</script><h3 id="官方解答"><a href="#官方解答" class="headerlink" title="官方解答"></a>官方解答</h3><div class="pdf" target="answer.pdf" height></div></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Project Euler</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>4.Largest palindrome product</title>
     <url>/2020/02/11/4-Largest-palindrome-product/</url>
     <content><![CDATA[<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is $9009 = 91 × 99$.</p>
@@ -40,7 +65,6 @@ Answer:906609</script><h3 id="官方解答"><a href="#官方解答" class="heade
       </categories>
       <tags>
         <tag>Math</tag>
-        <tag>Palindromic Number</tag>
         <tag>String</tag>
       </tags>
   </entry>
@@ -73,13 +97,10 @@ Answer:906609</script><h3 id="官方解答"><a href="#官方解答" class="heade
 任何一个大于1的自然数N，如果N不为质数，那么N可以唯一分解成有限个质数的乘积\\
 即：N = P_1 * P_2 *P_3 ......*P_n  (其中P_1 < P_2<P_3 ......<P_n)</script><p>根据题意我们可以知道我们要计算的就是$P_n$</p>
 <p>我们首先找到 对于N来说的一个最小质数因子 即$P_1$，然后我们再对于$N$来说，去除$P_1$,依次往下。最后当$P_x = P_n$时，得到的$P_x$ 就是最大的质因子。 </p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//1e8 不能采用素数筛</span></span><br><span class="line"><span class="keyword">const</span> ll ANS = <span class="number">600851475143</span>;</span><br><span class="line"><span class="function">ll <span class="title">isprime</span><span class="params">(ll x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(ll i = <span class="number">2</span>; ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(x % i == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    ll prime_number = ANS;</span><br><span class="line">    ll min_prime_number = isprime(prime_number);</span><br><span class="line">    <span class="keyword">while</span>(min_prime_number != prime_number)</span><br><span class="line">    &#123;</span><br><span class="line">        prime_number /= min_prime_number;</span><br><span class="line">        min_prime_number = isprime(prime_number);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; prime_number &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3></li>
-<li><p>不可以采用素数筛 会超时。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br></pre></td></tr></table></figure>
 </li>
-<li>以下代码从3开始  某种程度来说 不够严谨 但求的时$P_n$故可得到正确结果。</li>
 </ol>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//1e8 不能采用素数筛</span></span><br><span class="line"><span class="keyword">const</span> ll ANS = <span class="number">600851475143</span>;</span><br><span class="line"><span class="function">ll <span class="title">isprime</span><span class="params">(ll x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(ll i = <span class="number">3</span>; ; i += <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(x % i == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    ll prime_number = ANS;</span><br><span class="line">    ll min_prime_number = isprime(prime_number);</span><br><span class="line">    <span class="keyword">while</span>(min_prime_number != prime_number)</span><br><span class="line">    &#123;</span><br><span class="line">        prime_number /= min_prime_number;</span><br><span class="line">        min_prime_number = isprime(prime_number);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; prime_number &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>//1e8 不能采用素数筛<br>const ll ANS = 600851475143;<br>ll isprime(ll x)<br>{<br>    for(ll i = 2; ; i++)<br>    {<br>        if(x % i == 0)<br>            return i;<br>    }<br>}<br>int main(void)<br>{<br>    IOS<br>    ll prime_number = ANS;<br>    ll min_prime_number = isprime(prime_number);<br>    while(min_prime_number != prime_number)<br>    {<br>        prime_number /= min_prime_number;<br>        min_prime_number = isprime(prime_number);<br>    }<br>    cout &lt;&lt; prime_number &lt;&lt; endl;<br>    return 0;<br>}<br>   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">   ### 注意点</span><br><span class="line"></span><br><span class="line">1. 不可以采用素数筛 会超时。</span><br><span class="line">2. 以下代码从3开始  某种程度来说 不够严谨 但求的时$P_n$故可得到正确结果。</span><br><span class="line"></span><br><span class="line">​&#96;&#96;&#96;C++</span><br><span class="line">#include &lt;bits&#x2F;stdc++.h&gt;</span><br><span class="line">#define ll long long</span><br><span class="line">#define IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;1e8 不能采用素数筛</span><br><span class="line">const ll ANS &#x3D; 600851475143;</span><br><span class="line">ll isprime(ll x)</span><br><span class="line">&#123;</span><br><span class="line">    for(ll i &#x3D; 3; ; i +&#x3D; 2)</span><br><span class="line">    &#123;</span><br><span class="line">        if(x % i &#x3D;&#x3D; 0)</span><br><span class="line">            return i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    IOS</span><br><span class="line">    ll prime_number &#x3D; ANS;</span><br><span class="line">    ll min_prime_number &#x3D; isprime(prime_number);</span><br><span class="line">    while(min_prime_number !&#x3D; prime_number)</span><br><span class="line">    &#123;</span><br><span class="line">        prime_number &#x2F;&#x3D; min_prime_number;</span><br><span class="line">        min_prime_number &#x3D; isprime(prime_number);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; prime_number &lt;&lt; endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="正确答案"><a href="#正确答案" class="headerlink" title="正确答案"></a>正确答案</h3><script type="math/tex; mode=display">
 Answer:6857</script><h3 id="官方解答"><a href="#官方解答" class="headerlink" title="官方解答"></a>官方解答</h3>   <div class="pdf" target="answer.pdf" height></div>]]></content>
       <categories>
@@ -88,7 +109,6 @@ Answer:6857</script><h3 id="官方解答"><a href="#官方解答" class="headerl
       <tags>
         <tag>Math</tag>
         <tag>Rhythmical</tag>
-        <tag>Prime Number</tag>
       </tags>
   </entry>
   <entry>
@@ -182,7 +202,6 @@ Answer:233168</script><h3 id="官方解答"><a href="#官方解答" class="heade
       </categories>
       <tags>
         <tag>Math</tag>
-        <tag>Sequence of number</tag>
       </tags>
   </entry>
   <entry>
