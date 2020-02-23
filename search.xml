@@ -6,6 +6,7 @@
     <content><![CDATA[<h1 id="Blog恢复"><a href="#Blog恢复" class="headerlink" title="Blog恢复"></a>Blog恢复</h1><p>前几天由于数据库的问题 我重新安装了系统，但系统重装之后，我放在本地的blog发生了变化，消失了。</p>
 <p>由于我不得不在PC端使用Typora来写markdown文本，所以我要重新把blog进行恢复。</p>
 <p>在此记录一下，在恢复过程中，踩过的一些坑。</p>
+<a id="more"></a>
 <h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>拥有保留的blog的主题文件，即放在C盘的blog整体文件夹</p>
 <h1 id="具体细节"><a href="#具体细节" class="headerlink" title="具体细节"></a>具体细节</h1><p>我们照例下载nodejs和git等控件</p>
 <p>先采用nodejs运行以下命令安装hexo等控件</p>
