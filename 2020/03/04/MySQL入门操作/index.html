@@ -46,21 +46,23 @@
   };
 </script>
 
-  <meta name="description" content="问题描述有一个$h * w$的矩形，现在要在上边放置$n$个东西。东西的宽度为$w_i$。 放东西的原则是： 1.尽可能的在上层 2.尽可能放在左边 你要输出的是这$n$个东西在这个矩形的第几行。 输入$n, w, n$ 其中 $1 &lt;&#x3D; h, w &lt;&#x3D; 10^9, 1 &lt;&#x3D; n &lt;&#x3D; 200,000$ 下边又有$n$行数据，表示$w_i$, $1 &lt;&#x3D; w_i &amp;l">
+  <meta name="description" content="MySQL是一个比较常用的数据库 刚开始有诸多命令，再此处做一下记录便于理解。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HDU-2795.Billboard">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;13&#x2F;HDU-2795-Billboard&#x2F;index.html">
+<meta property="og:title" content="MySQL入门操作">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;04&#x2F;MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C&#x2F;index.html">
 <meta property="og:site_name" content="tiketiskte&#39;s blog">
-<meta property="og:description" content="问题描述有一个$h * w$的矩形，现在要在上边放置$n$个东西。东西的宽度为$w_i$。 放东西的原则是： 1.尽可能的在上层 2.尽可能放在左边 你要输出的是这$n$个东西在这个矩形的第几行。 输入$n, w, n$ 其中 $1 &lt;&#x3D; h, w &lt;&#x3D; 10^9, 1 &lt;&#x3D; n &lt;&#x3D; 200,000$ 下边又有$n$行数据，表示$w_i$, $1 &lt;&#x3D; w_i &amp;l">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;13&#x2F;HDU-2795-Billboard&#x2F;pictrue.png">
-<meta property="article:published_time" content="2020-02-13T11:45:21.000Z">
-<meta property="article:modified_time" content="2020-02-14T09:41:16.572Z">
+<meta property="og:description" content="MySQL是一个比较常用的数据库 刚开始有诸多命令，再此处做一下记录便于理解。">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;04&#x2F;MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C&#x2F;picture1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;04&#x2F;MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C&#x2F;picture2.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;04&#x2F;MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C&#x2F;picture3.png">
+<meta property="article:published_time" content="2020-03-04T12:23:28.000Z">
+<meta property="article:modified_time" content="2020-03-05T09:48:30.480Z">
 <meta property="article:author" content="tiketiskte">
-<meta property="article:tag" content="线段树">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;13&#x2F;HDU-2795-Billboard&#x2F;pictrue.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;04&#x2F;MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C&#x2F;picture1.png">
 
-<link rel="canonical" href="http://yoursite.com/2020/02/13/HDU-2795-Billboard/">
+<link rel="canonical" href="http://yoursite.com/2020/03/04/MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C/">
 
 
 <script id="page-configurations">
@@ -72,7 +74,7 @@
   };
 </script>
 
-  <title>HDU-2795.Billboard | tiketiskte's blog</title>
+  <title>MySQL入门操作 | tiketiskte's blog</title>
   
 
 
@@ -211,7 +213,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/13/HDU-2795-Billboard/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -224,7 +226,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          HDU-2795.Billboard
+          MySQL入门操作
         </h1>
 
         <div class="post-meta">
@@ -234,14 +236,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-02-13 19:45:21" itemprop="dateCreated datePublished" datetime="2020-02-13T19:45:21+08:00">2020-02-13</time>
+              <time title="Created: 2020-03-04 20:23:28" itemprop="dateCreated datePublished" datetime="2020-03-04T20:23:28+08:00">2020-03-04</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-14 17:41:16" itemprop="dateModified" datetime="2020-02-14T17:41:16+08:00">2020-02-14</time>
+                <time title="Modified: 2020-03-05 17:48:30" itemprop="dateModified" datetime="2020-03-05T17:48:30+08:00">2020-03-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -249,8 +251,8 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kuangbin%E4%B8%93%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">Kuangbin专题</span>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%80%BB%E7%BB%93/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库总结</span>
                   </a>
                 </span>
             </span>
@@ -264,8 +266,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2020/02/13/HDU-2795-Billboard/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/13/HDU-2795-Billboard/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/03/04/MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/04/MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -280,50 +282,67 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>有一个$h * w$的矩形，现在要在上边放置$n$个东西。东西的宽度为$w_i$。</p>
-<p>放东西的原则是：</p>
-<p>1.尽可能的在上层</p>
-<p>2.尽可能放在左边</p>
-<p>你要输出的是这$n$个东西在这个矩形的第几行。</p>
-<h1 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h1><p>$n, w, n$ 其中 $1 &lt;= h, w &lt;= 10^9, 1 &lt;= n &lt;= 200,000$</p>
-<p>下边又有$n$行数据，表示$w_i$, $1 &lt;= w_i &lt;= 10^9$</p>
+        <p>MySQL是一个比较常用的数据库 刚开始有诸多命令，再此处做一下记录便于理解。</p>
 <a id="more"></a>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>我们可以画一下样例 ，如图所示</p>
-<p><img src="/2020/02/13/HDU-2795-Billboard/pictrue.png" alt></p>
-<p>我们可以发现，对该矩形我们需要：</p>
-<script type="math/tex; mode=display">
-对其每一行剩余的长度 >= w_i中靠前的</script><p>我们先不考虑全题，我们考虑局部。</p>
-<p>对于区间$[l, r]$来说，左半边的最大值是$l_x$, 右半边的最大值是$r_x$。</p>
+<h1 id="入门一"><a href="#入门一" class="headerlink" title="入门一"></a>入门一</h1><ul>
+<li><p>查看安装的数据库支持的字符集范围：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show character set;</span><br></pre></td></tr></table></figure>
+<p>最常用的当属utf-8字符集</p>
+</li>
+<li><p>查看当前数据库采用的字符集：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;character%&#39;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>此处要进行修改MySQL的字符集设置（如不一致，查询等操作可能会出现乱码的情况）</p>
+<p>有Client端，connection， results等。</p>
+<p>注意！！！此处一定要先stop掉MySQL服务，再进行以下操作，否则修改过后MySQL无法正常启动。<strong>[亲测事实证明]</strong></p>
 <ol>
-<li>如果一边是$&gt;= w$，另一边不符合。我们直接选择即可。</li>
-<li>如果两边都$&lt;w$，那么我们可以直接输出$-1$。</li>
-<li>如果两边都$&gt;= w$,我们左右都可以放置，这样我们可以根据题目中的要求，选择左边。</li>
-</ol>
-<p>简而言之，我们对于每一个$w_i$来说，都尽可能选择$h$较小且优先选择左边的。</p>
-<p>询问的数据在$2*10^5$，$h$和$w$的范围是$1 &lt;= h, w &lt;= 10^9$，我们可以用线段树来维护这个矩形中每一行剩余的最大面积，对于每一个$w_i$,我们找到一个正确的行给它，并且用$ans$数组来记录所对应的行数。</p>
-<p>我们可以搜改一体，找到之后，就修改这一行的最大面积(即结点存储的值)，并返回其位置。</p>
-<p>现在就剩下最后一个问题了 对于数组空间 我们应该取什么样的值……</p>
-<p>是根据$h$的范围，还是根据$n$的范围</p>
-<p>我们看一下两个变量的范围 :</p>
-<script type="math/tex; mode=display">
-h:1 <= h <= 10^9\\
-n :1 <= n <= 2 * 10^5</script><p>显然直接根据n的范围开数组一定会爆，我们考虑一下，</p>
-<p>如果每行一个$w_i$,这样有可能高度达到$n$。那么最多也只有$2 * 10^5$个。</p>
-<p>所以我们再开线段树空间的时候，最大开四倍的$n$即可。</p>
-<p>我们建立的时候，直接比较$max(h, n)$即可。根据大的那一个建树。</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">200000</span> + <span class="number">2</span>;</span><br><span class="line">ll h, w, n;</span><br><span class="line">ll row;</span><br><span class="line">ll d[maxn &lt;&lt; <span class="number">2</span>], ans[maxn];<span class="comment">//ans数组用来记录行数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_up</span><span class="params">(<span class="keyword">int</span> rt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    d[rt] = <span class="built_in">max</span>(d[rt &lt;&lt; <span class="number">1</span>], d[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> rt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l == r)</span><br><span class="line">    &#123;</span><br><span class="line">        d[rt] = w;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> m = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    build(l, m, rt &lt;&lt; <span class="number">1</span>);</span><br><span class="line">    build(m + <span class="number">1</span>, r, rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>);</span><br><span class="line">    push_up(rt);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> rt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//v要更新的占用空间</span></span><br><span class="line">    <span class="keyword">if</span>(l == r)<span class="comment">//找到合适的行数就是l</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(d[rt] &gt;= v)<span class="comment">//要考虑n == 1的情况！</span></span><br><span class="line">        &#123;</span><br><span class="line">            d[rt] -= v;</span><br><span class="line">            ans[row++] = l;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ans[row++] = <span class="number">-1</span>;<span class="comment">//当n 为1 时，没位置就存储1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> m = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(d[rt] &gt;= v)<span class="comment">//左右递归寻找</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(d[rt &lt;&lt; <span class="number">1</span>] &gt;= v)<span class="comment">//递归尽量寻找上边的</span></span><br><span class="line">            update(v, l, m, rt &lt;&lt; <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            update(v, m + <span class="number">1</span>, r, rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        ans[row++] = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    push_up(rt);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; h &gt;&gt; w &gt;&gt; n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(d, <span class="number">0</span>, <span class="keyword">sizeof</span>(d));</span><br><span class="line">        <span class="built_in">memset</span>(ans, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans));</span><br><span class="line">        row = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(h &gt; n)</span><br><span class="line">            h = n;</span><br><span class="line">        build(<span class="number">1</span>, h, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">            update(x, <span class="number">1</span>, h, <span class="number">1</span>);<span class="comment">//单点更新</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; ans[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><ol>
-<li><p>单点更新时变量的变化逻辑关系</p>
+<li><p>通过C盘中查看隐藏文件找到ProgramData 然后进入MySQL的MySQL server中，找到my.ini配置文件。</p>
 </li>
-<li><p>搜改一体的具体操作细节见代码</p>
+<li><p>修改client 添加“default-character-set=utf8”</p>
+<p><img src="/2020/03/04/MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C/picture1.png" alt></p>
 </li>
-<li><p>提供一个构造特例：</p>
-<p><strong>input</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5 2 1</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
-<p><strong>output</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-1</span><br></pre></td></tr></table></figure>
+<li><p>修改mysqld添加“character-set-server = utf8”</p>
+<p><img src="/2020/03/04/MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C/picture2.png" alt></p>
 </li>
 </ol>
+<p><strong>！！！不要按照视频讲解！！！会报错！会发生不能启动的情况！！！</strong></p>
+<p>这样就修改了。</p>
+<ul>
+<li><p>查看当前数据库十余年的存储引擎：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;%storage engine%&#39;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当前数据库刷新语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当前数据库列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>更多的时候是采用一种编写脚本的形式去执行相应的命令 接下来就是通过类似windows下的批处理脚本来顺次执行文件中的命令。</p>
+<p>编写脚本$test.sql$，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create database junetest;</span><br><span class="line">use junetest;</span><br><span class="line">set default_storage_engine&#x3D;InnoDB;&#x2F;&#x2F;设定数据库引擎</span><br><span class="line">create table mytable(&#x2F;&#x2F;预先设计好的数据表</span><br><span class="line">name char(20),</span><br><span class="line">birth datetime</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>然后执行命令：[一般是source + 文件路径格式]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source d:&#x2F;test.sql</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/03/04/MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C/picture3.png" alt></p>
+<p>这样就创建完毕了。</p>
+<h1 id="入门二"><a href="#入门二" class="headerlink" title="入门二"></a>入门二</h1><ul>
+<li><p>采用另一种方式创建数据库:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database 数据库名;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查找当前数据库的路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;datadir&#39;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>选择当前数据库:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use 数据库名;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改数据库的默认字符集设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter database test DEFAULT CHARACTER SET &lt;字符集名&gt;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改数据库的默认比较规则设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter database test DEFAULT COLLATE &lt;比较规则&gt;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
     </div>
 
@@ -354,7 +373,7 @@ n :1 <= n <= 2 * 10^5</script><p>显然直接根据n的范围开数组一定会�
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag"><i class="fa fa-tag"></i> 线段树</a>
+              <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
           </div>
 
         
@@ -363,13 +382,10 @@ n :1 <= n <= 2 * 10^5</script><p>显然直接根据n的范围开数组一定会�
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/13/HDU-1754-I-Hate-It/" rel="prev" title="HDU-1754.I Hate It">
-      <i class="fa fa-chevron-left"></i> HDU-1754.I Hate It
+    <a href="/2020/02/24/%E8%AE%B02020-2-24%E7%94%B5%E8%84%91%E9%87%8D%E8%A3%85%E5%90%8E%E7%9A%84Blog%E6%81%A2%E5%A4%8D/" rel="prev" title="记2020.2.24电脑重装后的Blog恢复">
+      <i class="fa fa-chevron-left"></i> 记2020.2.24电脑重装后的Blog恢复
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/02/16/2020-2-16-%E7%A2%8E%E7%A2%8E%E5%BF%B5/" rel="next" title="2020.2.16 碎碎念">
-      2020.2.16 碎碎念 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -430,7 +446,7 @@ n :1 <= n <= 2 * 10^5</script><p>显然直接根据n的范围开数组一定会�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入"><span class="nav-number">2.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意点"><span class="nav-number">5.</span> <span class="nav-text">注意点</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#入门一"><span class="nav-number">1.</span> <span class="nav-text">入门一</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#入门二"><span class="nav-number">2.</span> <span class="nav-text">入门二</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
