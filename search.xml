@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>PTA-1028-人口普查</title>
+    <url>/2020/03/18/PTA-1028-%E4%BA%BA%E5%8F%A3%E6%99%AE%E6%9F%A5/</url>
+    <content><![CDATA[<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h1><blockquote>
+<p><a href="https://pintia.cn/problem-sets/994805260223102976/problems/994805293282607104" target="_blank" rel="noopener">https://pintia.cn/problem-sets/994805260223102976/problems/994805293282607104</a></p>
+</blockquote>
+<p><strong>数据范围</strong>:</p>
+<p>$0 &lt;= N &lt;= 10^5$</p>
+<p><strong>样例</strong>:</p>
+<p><em>Input</em>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">John 2001&#x2F;05&#x2F;12</span><br><span class="line">Tom 1814&#x2F;09&#x2F;06</span><br><span class="line">Ann 2121&#x2F;01&#x2F;30</span><br><span class="line">James 1814&#x2F;09&#x2F;05</span><br><span class="line">Steve 1967&#x2F;11&#x2F;20</span><br></pre></td></tr></table></figure>
+<p><em>Output</em>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">3 Tom John</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="题目做法"><a href="#题目做法" class="headerlink" title="题目做法"></a>题目做法</h2><p>这个题给的输入是比较复杂的，我们在判断是否是一个合理的序列的时候，如果是按照年月日的格式依次判断的话，显然是比较复杂的。</p>
+<p>我们采用结构体来存储这个生日：</p>
+<p>例如：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="keyword">int</span> year;</span><br><span class="line">    <span class="keyword">int</span> month;</span><br><span class="line">    <span class="keyword">int</span> day;</span><br><span class="line">    <span class="comment">/* data*/</span></span><br><span class="line">&#125;Node;</span><br><span class="line">Node a[maxn];<span class="comment">//来存储信息</span></span><br></pre></td></tr></table></figure>
+<p>我们写判断是否是一个合法生日的时候，就要写一下语句：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(a[i].year &gt; <span class="number">1814</span> || (a[i].year == <span class="number">1814</span> &amp;&amp; a[i].month &gt; <span class="number">9</span>) || (a[i].year == <span class="number">1814</span> &amp;&amp; a[i].month = <span class="number">9</span> &amp;&amp; a[i].day &gt; <span class="number">6</span>) ||a[i].year &lt; <span class="number">2014</span> || (a[i].year == <span class="number">2014</span> &amp;&amp; a[i].month &lt; <span class="number">9</span>) || (a[i].year == <span class="number">2014</span> &amp;&amp; a[i].month = <span class="number">9</span> &amp;&amp; a[i].day &lt; <span class="number">6</span>) )</span><br></pre></td></tr></table></figure>
+<p>并且我们在判断谁是最大生日/最小生日的时候，还要按照年月日依次判断，代码量冗余。</p>
+<p>我们可以采用$string$的特性来进行比较。</p>
+<p>直接把生日定义成一个$string$类型，$string$可以直接比较大小。</p>
+<p>并且我们还可以进一步降低空间复杂度，我们不必开一个struct的数组类型，只需要保存当前的信息和现在当前的已经存在的最大/最小的生日名字信息即可。然后采用线性处理，没读入一个，先判断是否是一个合理的生日序列，然后我们更新当前的最大/最小生日即可。</p>
+<p>比较过程可以直接采用$string$比较。【详见代码】</p>
+<p>！！！坑点！！！</p>
+<p>这个题最后题面说明是: </p>
+<p><strong>在一行中顺序输出有效生日的个数、最年长人和最年轻人的姓名，其间以空格分隔。</strong></p>
+<p>但是并没有给出一个特殊的样例，就是输出0的时候。如果没有有效的，输出0！！！并且后边不需要带空格 直接换行即可。</p>
+<p>暗示：最后我们首先输出计数$cnt$, 然后我们再判断$cnt$是否为0，不为0时，输出最大最小。</p>
+<p>【我觉得这就是一个傻逼题目的说明问题还有样例问题…..真的浪费时间】</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* const int maxn = 1e5 + 5; */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS </span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="built_in">string</span> minbirth = <span class="string">"2014/09/06"</span>, maxbirth = <span class="string">"1814/09/06"</span>;</span><br><span class="line">    <span class="built_in">string</span> minname = <span class="string">""</span>, maxname = <span class="string">""</span>;</span><br><span class="line">    <span class="built_in">string</span> temp_name = <span class="string">""</span>, temp_birth = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; temp_name &gt;&gt; temp_birth;</span><br><span class="line">        <span class="keyword">if</span> (temp_birth &gt;= <span class="string">"1814/09/06"</span> &amp;&amp; temp_birth &lt;= <span class="string">"2014/09/06"</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cnt++;</span><br><span class="line">            <span class="keyword">if</span> (temp_birth &gt;= maxbirth)</span><br><span class="line">            &#123;</span><br><span class="line">                maxname = temp_name;</span><br><span class="line">                maxbirth = temp_birth;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (temp_birth &lt;= minbirth)</span><br><span class="line">            &#123;</span><br><span class="line">                minname = temp_name;</span><br><span class="line">                minbirth = temp_birth;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; cnt;</span><br><span class="line">    <span class="keyword">if</span> (cnt != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; minname &lt;&lt; <span class="string">" "</span> &lt;&lt; maxname &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//system("pause");</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结点"><a href="#总结点" class="headerlink" title="总结点"></a>总结点</h3><ol>
+<li>一般复杂类型可以转换成字符串的问题，可以采用$STL$去解决。</li>
+<li>输入输出一定要保持一致，不要$cout $和 $printf$混合使用[<strong>会发生莫名其妙的bug</strong>]</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<p><a href="https://en.cppreference.com/w/cpp/string/basic_string" target="_blank" rel="noopener">https://en.cppreference.com/w/cpp/string/basic_string</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>PTA</category>
+      </categories>
+      <tags>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MySQL入门操作</title>
     <url>/2020/03/04/MySQL%E5%85%A5%E9%97%A8%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<p>MySQL是一个比较常用的数据库 刚开始有诸多命令，再此处做一下记录便于理解。</p>
