@@ -15,7 +15,7 @@
 <p>一开始看到这个题目的时候，是比较蒙蔽的 然后考虑了用$format$，发现并不行，因为使用”$-$”分割的部分，我们要考虑把”$-$”去掉，这时候考虑到一个函数$split()$</p>
 <p>这个函数是以参数k为分割标记，然后将分割的各部分组合形成一个列表。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ans = s.split(<span class="string">'-'</span>)</span><br></pre></td></tr></table></figure>
-<p>形成的$ans$列表就是每个单词了 这样我们就好处理了 只需要依照着列表类型输出2即可。</p>
+<p>形成的$ans$列表就是每个单词了 这样我们就好处理了 只需要依照着列表类型输出即可。</p>
 <p>这里注意一下，题目中说明了是首尾字符，我们在输出的时候，最好采用以下的格式：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(ans[<span class="number">0</span>] + <span class="string">'+'</span> + ans[<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
 <p>而不要去采用以下方式:</p>
