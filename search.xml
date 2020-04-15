@@ -1,6 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Codeforces-Round-632-Div-2</title>
+    <url>/2020/04/11/Codeforces-Round-632-Div-2/</url>
+    <content><![CDATA[<p>菜鸡的$div2$补题现场……</p>
+<a id="more"></a>
+<h3 id="A-Little-Artem"><a href="#A-Little-Artem" class="headerlink" title="A:Little Artem"></a>A:Little Artem</h3><p>1.题目描述：</p>
+<p>给你一个$n * m$的矩形，现在让你涂色。$’B’$表示黑色，$’W’$表示白色。</p>
+<p>Lets $B$ be the number of black cells that have at least one white neighbor adjacent by the side. Let $W$ be the number of white cells that have at least one black neighbor adjacent by the side. </p>
+<p>先（重新）定义：</p>
+<ul>
+<li>$’B’$表示具有至少一个相邻的白色邻居的单元格数量。</li>
+<li>$‘W’$表示具有至少一个相邻的黑色邻居的单元格数量。</li>
+</ul>
+<p>当$B = W + 1$时，我们称该矩形是好的。</p>
+<p>让你输出任何一个好的矩形。</p>
+<p><em>input:</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2</span><br><span class="line">3 2</span><br><span class="line">3 3</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BW</span><br><span class="line">WB</span><br><span class="line">BB</span><br><span class="line">BWB</span><br><span class="line">BWW</span><br><span class="line">BWB</span><br></pre></td></tr></table></figure>
+<p>2.思路</p>
+<p>【！！！读题仔细！！！】</p>
+<p>所以我们可以构造出一个样例，即构造出$2 (B)= 1(W) + 1$这种，就满足题目要求。</p>
+<p>我们就可以让随便一个位置为$W$,然后构造两个$B$围着即可。</p>
+<p>即矩形四个角的位置设置为$W$,其他均为$B$即可。</p>
+<p><strong>【qwq 我没有想到www~】</strong></p>
+<p>3.代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> t, n, m;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   IOS</span><br><span class="line">   <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">   <span class="keyword">while</span>(t--) &#123;</span><br><span class="line">       <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">           <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">               <span class="keyword">if</span>(i == <span class="number">1</span> &amp;&amp; j == m) &#123;<span class="comment">//判断条件随便写 构造即可</span></span><br><span class="line">                   <span class="built_in">cout</span> &lt;&lt;<span class="string">'W'</span>;</span><br><span class="line">               &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                   <span class="built_in">cout</span> &lt;&lt;<span class="string">'B'</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//system("pause");</span></span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="B-Kind-Anton"><a href="#B-Kind-Anton" class="headerlink" title="B:Kind Anton"></a>B:Kind Anton</h3><p>1.题目描述</p>
+<p>一个$a$数组，里边的元素只有${-1, 0, 1}$，你可以执行操作：</p>
+<ul>
+<li>选择一对$(i, j)$满足$1 \le i &lt; j \le n$,可以多次选择同一对。</li>
+<li>将$a_i$ 加到$a_j$上， 即:$a_j = a_i + a_j$</li>
+</ul>
+<p>问：给你一个$a$, $b$，能否对$a$进行上述操作，使得成为$b$数组？输出”YES/NO”</p>
+<p>数据量：</p>
+<ul>
+<li>T组数据：$1\le t \le 10000$</li>
+<li>N—数组长度：$1\le n \le 10^5$</li>
+</ul>
+<p><em>input:</em>.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">3</span><br><span class="line">1 -1 0</span><br><span class="line">1 1 -2</span><br><span class="line">3</span><br><span class="line">0 1 1</span><br><span class="line">0 2 2</span><br><span class="line">2</span><br><span class="line">1 0</span><br><span class="line">1 41</span><br><span class="line">2</span><br><span class="line">-1 0</span><br><span class="line">-1 -41</span><br><span class="line">5</span><br><span class="line">0 1 -1 1 -1</span><br><span class="line">1 1 -1 1 -1</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">YES</span><br><span class="line">NO</span><br><span class="line">YES</span><br><span class="line">YES</span><br><span class="line">NO</span><br></pre></td></tr></table></figure>
+<p>2.思路：</p>
+<p>思维题</p>
+<p>我们考虑，既然$i &lt; j$恒成立，则：当$a_j &lt;= a_j$时，我们就可以通过无限次累加$1$使得成立。</p>
+<p>即：当$a_j &gt;= a_j$时，我们也可以通过无限次累加$-1$使得成立。</p>
+<p>所以我们要做的判断就是当$a_j &lt;= b_j$时，是否存在$1$使得可以成立。 $&gt;=$情况同理。</p>
+<p>具体细节见代码。</p>
+<p>逻辑判断条件要搞清….不然会很乱….</p>
+<p>3.代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> t, n, x;</span><br><span class="line"><span class="comment">//vector&lt;int&gt;a,b;</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> a[maxn], b[maxn];</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> flag = <span class="literal">false</span>, x1 = <span class="literal">false</span>, x2 = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(a[i] &lt; b[i] &amp;&amp; !x1) &#123;</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(a[i] &gt; b[i] &amp;&amp; !x2) &#123;</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(a[i] == <span class="number">1</span>) &#123;</span><br><span class="line">            x1 = <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(a[i] == <span class="number">-1</span>) &#123;</span><br><span class="line">            x2 = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> flag;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   IOS</span><br><span class="line">   <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">   <span class="keyword">while</span>(t--) &#123;</span><br><span class="line">       <span class="comment">//int x;</span></span><br><span class="line">       <span class="built_in">memset</span>(a, <span class="number">0</span>, <span class="keyword">sizeof</span>(a));</span><br><span class="line">       <span class="built_in">memset</span>(b, <span class="number">0</span>, <span class="keyword">sizeof</span>(b));</span><br><span class="line">       <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">          <span class="comment">/*  cin &gt;&gt; x;</span></span><br><span class="line"><span class="comment">           a.push_back(x); */</span></span><br><span class="line">           <span class="built_in">cin</span> &gt;&gt; a[i]; </span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">          <span class="comment">/*  cin &gt;&gt; x;</span></span><br><span class="line"><span class="comment">           b.push_back(x); */</span></span><br><span class="line">           <span class="built_in">cin</span> &gt;&gt; b[i]; </span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">/* for(int x : a) &#123;</span></span><br><span class="line"><span class="comment">           cout &lt;&lt; x &lt;&lt; " ";</span></span><br><span class="line"><span class="comment">       &#125;</span></span><br><span class="line"><span class="comment">       for(int x : b) &#123;</span></span><br><span class="line"><span class="comment">           cout &lt;&lt; x &lt;&lt; " ";</span></span><br><span class="line"><span class="comment">       &#125; */</span></span><br><span class="line">       <span class="keyword">if</span>(solve()) &#123;</span><br><span class="line">           <span class="built_in">puts</span>(<span class="string">"NO"</span>);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="built_in">puts</span>(<span class="string">"YES"</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   system(<span class="string">"pause"</span>);</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="C-Eugene-and-an-array"><a href="#C-Eugene-and-an-array" class="headerlink" title="C:Eugene and an array"></a>C:Eugene and an array</h3><p>1.题目描述</p>
+<p>给你一个序列$a$，让你找出$a$的所有$sum != 0$的子序列个数。</p>
+<p><em>input：</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">first:</span><br><span class="line">3</span><br><span class="line">1 2 -3</span><br><span class="line">second:</span><br><span class="line">3</span><br><span class="line">41 -41 41</span><br></pre></td></tr></table></figure>
+<p><em>output：</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">first:</span><br><span class="line">5</span><br><span class="line">second:</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p>2.思路：</p>
+<p>子序列$sum$问题考虑前缀和。</p>
+<p>题目中说明：一个序列的子序列如果$sum == 0$那么也不是一个$good$序列。于是我们可以用一个$map$来维护当前的前缀和，即：维护$sum$和对应的下标$i$。</p>
+<p>！！！注意！！求前缀和的时候，原来的每一项数据范围是$int$，可能会爆$int$,所以我们采用$long long map$来维护。</p>
+<p>【就是$map$保存前缀和嘛~出现前缀和相同，就是证明里边有$sum == 0$的子串，我们就去找最大左端点，然后用当前减去即可。】</p>
+<p>思路就是 :</p>
+<ul>
+<li>我们首先对每一个i 找包含$a[i]$的子串的个数 </li>
+<li>显然为$n$个，证明：对于第$i$个，左边有$i - 1$个，右边有$n - i$个，包含自身，即：$i - 1 + 1 + n - i$ 为$n$</li>
+<li>我们可以枚举每一个$a[i]$，求出其往左延伸有多少符合的子串，然后我们在加一下即可。</li>
+<li>对每一个$a[i]$，我们最后$ans += i - (max_l + 1)$[注意要+1，$max_l$ 表示前缀和相等的下标，实际区间要多减去1]</li>
+</ul>
+<p><img src="/2020/04/11/Codeforces-Round-632-Div-2/picture2.png" alt></p>
+<p>3.代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> endl <span class="meta-string">"\n"</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">2e5</span> + <span class="number">5</span>;</span><br><span class="line">ll a[maxn];</span><br><span class="line">ll ans;</span><br><span class="line"><span class="built_in">map</span>&lt;ll, ll&gt;mp;<span class="comment">//每一个前缀和出现的下标</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   IOS</span><br><span class="line">   <span class="keyword">int</span> n;</span><br><span class="line">   <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">       <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">   &#125;</span><br><span class="line">   ll sum = <span class="number">0</span>;</span><br><span class="line">   mp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">   ll temp = <span class="number">-1</span>;<span class="comment">//当前位置 区间 注意初始化</span></span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">       sum += a[i];</span><br><span class="line">       <span class="keyword">if</span>(mp.count(sum)) &#123;</span><br><span class="line">           temp = <span class="built_in">max</span>(temp, mp[sum]);</span><br><span class="line">       &#125;</span><br><span class="line">       mp[sum] = i;<span class="comment">//更新</span></span><br><span class="line">       ans += i - (temp + <span class="number">1</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">   system(<span class="string">"pause"</span>);</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Codeforces</category>
+      </categories>
+      <tags>
+        <tag>构造</tag>
+        <tag>思维，前缀和</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PTA-1031-查验身份证</title>
     <url>/2020/04/10/PTA-1031-%E6%9F%A5%E9%AA%8C%E8%BA%AB%E4%BB%BD%E8%AF%81/</url>
     <content><![CDATA[<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h1><blockquote>
@@ -120,6 +202,7 @@
       <tags>
         <tag>贪心</tag>
         <tag>模拟</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
