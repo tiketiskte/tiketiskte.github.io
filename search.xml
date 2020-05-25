@@ -1,9 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>nowcoder_入门课1</title>
+    <url>/2020/05/20/nowcoder-%E5%85%A5%E9%97%A8%E8%AF%BE1/</url>
+    <content><![CDATA[<p>枚举 贪心 暴力 前缀和</p>
+<a id="more"></a>
+<h3 id="POJ1753-Flip-Game"><a href="#POJ1753-Flip-Game" class="headerlink" title="POJ1753: Flip Game"></a>POJ1753: Flip Game</h3><p>思路:</p>
+<p>数据规模是$4 * 4$的，我们可以直接用一个char的$Map$来存储状态。</p>
+<p>判断终点是所有的单元格的状态都相同 我们可以用一个$temp$ 然后遍历 进行判断。</p>
+<p><strong>注：翻转操作的时候 可能是$3$或$5$次相邻的翻转操作 我们最好是将其写成$flip$函数调用。</strong></p>
+<p>对$Map$从起点开始枚举每一个单元格翻转之后判断状态 类似<strong>DFS</strong></p>
+<p>注意回溯处理 如果反转之后要回溯一下  </p>
+<p>不翻转 即可DFS下一个单元格。<strong>详见代码</strong></p>
+<p>时间复杂度：</p>
+<script type="math/tex; mode=display">
+O(2^N * N * M)\\
+每一个单元格有2^N种状态</script><p>代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//#include &lt;bits/stdc++.h&gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> Map[<span class="number">5</span>][<span class="number">5</span>];</span><br><span class="line"><span class="keyword">int</span> ans = INF;<span class="comment">//get_min set_max</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> temp = Map[<span class="number">1</span>][<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">4</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">4</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(Map[i][j] != temp) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// vertical is x and horizontal is y</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">flip</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Map[x][y] == <span class="string">'w'</span>) &#123;<span class="comment">//flip self</span></span><br><span class="line">        Map[x][y] = <span class="string">'b'</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(Map[x][y] == <span class="string">'b'</span>)&#123;</span><br><span class="line">        Map[x][y] = <span class="string">'w'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(Map[x - <span class="number">1</span>][y] == <span class="string">'w'</span>) &#123;<span class="comment">//flip up</span></span><br><span class="line">        Map[x - <span class="number">1</span>][y] = <span class="string">'b'</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(Map[x - <span class="number">1</span>][y] == <span class="string">'b'</span>) &#123;</span><br><span class="line">        Map[x - <span class="number">1</span>][y] = <span class="string">'w'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(Map[x + <span class="number">1</span>][y] == <span class="string">'w'</span>) &#123;<span class="comment">//flip down</span></span><br><span class="line">        Map[x + <span class="number">1</span>][y] = <span class="string">'b'</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(Map[x + <span class="number">1</span>][y] == <span class="string">'b'</span>) &#123;</span><br><span class="line">        Map[x + <span class="number">1</span>][y] = <span class="string">'w'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(Map[x][y - <span class="number">1</span>] == <span class="string">'w'</span>) &#123;<span class="comment">//flip left</span></span><br><span class="line">        Map[x][y - <span class="number">1</span>] = <span class="string">'b'</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(Map[x][y - <span class="number">1</span>] == <span class="string">'b'</span>) &#123;</span><br><span class="line">        Map[x][y - <span class="number">1</span>] = <span class="string">'w'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(Map[x][y + <span class="number">1</span>] == <span class="string">'w'</span>) &#123;<span class="comment">//flip right</span></span><br><span class="line">        Map[x][y + <span class="number">1</span>] = <span class="string">'b'</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(Map[x][y + <span class="number">1</span>] == <span class="string">'b'</span>) &#123;</span><br><span class="line">        Map[x][y + <span class="number">1</span>] = <span class="string">'w'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> cnt)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(check()) &#123;</span><br><span class="line">        <span class="keyword">if</span>(cnt &lt; ans) &#123;<span class="comment">//min_step</span></span><br><span class="line">            ans = cnt;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(x == <span class="number">5</span> || y == <span class="number">5</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    flip(x, y);<span class="comment">//flip</span></span><br><span class="line">    <span class="keyword">if</span>(y == <span class="number">4</span>) &#123;</span><br><span class="line">        DFS(x + <span class="number">1</span>, <span class="number">1</span>, cnt + <span class="number">1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        DFS(x, y + <span class="number">1</span>, cnt + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    flip(x, y);<span class="comment">//flip_back</span></span><br><span class="line">    <span class="comment">//not flip</span></span><br><span class="line">    <span class="keyword">if</span>(y == <span class="number">4</span>) &#123;</span><br><span class="line">        DFS(x + <span class="number">1</span>, <span class="number">1</span>, cnt);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        DFS(x, y + <span class="number">1</span>, cnt);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   IOS</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">4</span>; i++) &#123;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">4</span>; j++) &#123;</span><br><span class="line">           <span class="built_in">cin</span> &gt;&gt; Map[i][j];</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   DFS(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">   <span class="comment">//cout &lt;&lt; "ans:" &lt;&lt; ans &lt;&lt; endl;</span></span><br><span class="line">   <span class="keyword">if</span>(ans != INF) &#123;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">"Impossible"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//system("pause");</span></span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="POJ3061-Subsequence"><a href="#POJ3061-Subsequence" class="headerlink" title="POJ3061: Subsequence"></a>POJ3061: Subsequence</h3><p>思路</p>
+<p>代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="NC24867-Selfish-Grazing"><a href="#NC24867-Selfish-Grazing" class="headerlink" title="NC24867: Selfish Grazing"></a>NC24867: Selfish Grazing</h3><p>思路</p>
+<p>代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="NC20032-HNOI激光炸弹"><a href="#NC20032-HNOI激光炸弹" class="headerlink" title="NC20032: HNOI激光炸弹"></a>NC20032: HNOI激光炸弹</h3><p>思路</p>
+<p>给你一个边长为$r$的正方形，让你围成权值最大的部分。</p>
+<p>我们可以考虑前缀和  考虑一下一维前缀和：</p>
+<script type="math/tex; mode=display">
+s[i] = \sum_{j = 1}^i{A[i]}</script><p>我们用$O(n)$的时间求出前缀和 后续查询部分和即可在$O(1)$的时间内完成。</p>
+<script type="math/tex; mode=display">
+sum[l, r] = \sum_{i = l}^r{A[i]}=s[r] - s[l - 1]</script><p>这个题涉及权值，我们可以考虑一下用二位前缀和来维护坐标为$i，j$的总权值。</p>
+<p>二维前缀和:</p>
+<script type="math/tex; mode=display">
+s[i][j] = \sum_{a = 1}^i\sum_{b = 1}^j{A[a][b]}</script><script type="math/tex; mode=display">
+s[i][j]：以(1, 1)为左上角，(i,j)为右下角的矩形的面积/权值</script><p>如图所示：</p>
+<p><img src="/2020/05/20/nowcoder-%E5%85%A5%E9%97%A8%E8%AF%BE1/two_sum.jpg" alt></p>
+<p>我们可以在$O(n ^ 2)$的时间内预处理出二维前缀和$S$。</p>
+<p>下边我们只需要找边长为$r$的区域使得权值最大 </p>
+<p>即：以$(i, j)$为右下角，边长为$r$的正方形区域的面积/权值。</p>
+<script type="math/tex; mode=display">
+\sum_{a = i - r + 1}^i\sum_{b = j - r + 1}^j \\= s[i][j] - s[i - r][j]- s[i][j - r] + s[i - r][j - r]</script><p><strong>细节</strong>：</p>
+<ul>
+<li><p>因为靠考虑前缀和 我们下标从$0$开始存储，可能会出现数组越界的错误 因此我们$x,j$都$+1$.</p>
+</li>
+<li><p>预处理前缀和时，可以缩小预处理的范围：</p>
+<p>选取最小范围的正方形 这样才能保证寻找二维前缀和时初始访问位置有效</p>
+<p>即$x = y = r$ 然后根据$x, y$选取 详见代码.</p>
+</li>
+</ul>
+<p>代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">5000</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> n, r;</span><br><span class="line"><span class="keyword">int</span> ans;</span><br><span class="line"><span class="keyword">int</span> sum[maxn][maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   IOS</span><br><span class="line">   <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; r;</span><br><span class="line">   <span class="keyword">int</span> m_x = r, m_y = r;<span class="comment">//设置边界值为r 缩小求前缀和范围</span></span><br><span class="line">   <span class="keyword">int</span> x, y, w;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">       <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y &gt;&gt; w;</span><br><span class="line">       x++, y++;</span><br><span class="line">       sum[x][y] = w;</span><br><span class="line">       m_x = <span class="built_in">max</span>(x, m_x);</span><br><span class="line">       m_y = <span class="built_in">max</span>(y, m_y);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m_x; i++) &#123;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m_y; j++) &#123;</span><br><span class="line">           sum[i][j] = sum[i - <span class="number">1</span>][j] + sum[i][j - <span class="number">1</span>] - sum[i - <span class="number">1</span>][j - <span class="number">1</span>] + sum[i][j]; </span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i = r; i &lt;= m_x; i++) &#123;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> j = r; j &lt;= m_y; j++) &#123;<span class="comment">//找范围</span></span><br><span class="line">           ans = <span class="built_in">max</span>(ans, sum[i][j] - sum[i - r][j] - sum[i][j - r] + sum[i - r][j - r]);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">   system(<span class="string">"pause"</span>);</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>nowcoder</category>
+      </categories>
+      <tags>
+        <tag>前缀和</tag>
+        <tag>贪心</tag>
+        <tag>模拟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Codeforces-Round-640-Div-4</title>
+    <url>/2020/05/10/Codeforces-Round-640-Div-4/</url>
+    <content><![CDATA[<p>菜鸡的$div4$补题现场……</p>
+<p>(真就尼玛见证历史)……</p>
+<a id="more"></a>
+<h3 id="A-Sum-of-Round-Numbers"><a href="#A-Sum-of-Round-Numbers" class="headerlink" title="A:Sum of Round Numbers"></a>A:Sum of Round Numbers</h3><p>1.题目描述：</p>
+<p>给你一个$n$，拆成$round$数。</p>
+<p>$round$数：除最高位以外的其他位所有数字都是0，则成为$round$数。</p>
+<p>$1$~$9$所有的数字都是$round$。</p>
+<p><em>input:</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">5009</span><br><span class="line">7</span><br><span class="line">9876</span><br><span class="line">10000</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2</span><br><span class="line">5000 9</span><br><span class="line">1</span><br><span class="line">7 </span><br><span class="line">4</span><br><span class="line">800 70 6 9000 </span><br><span class="line">1</span><br><span class="line">10000 </span><br><span class="line">1</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+<p>2.思路</p>
+<p>类似于拆分一个整数$n$， 我们对其每一位判断然后乘上该位置的对应的$10$的倍数即可。</p>
+<p>[比赛中 没有看到这一句话]……</p>
+<p>$The \ terms\ can\ be \ printed \ in \ any \ order.$</p>
+<p>补题的时候我尼玛人都傻了  可以以任何顺序输出…..fuck</p>
+<p>我们就可以随便搞了 用一个$a$数组来记录$answer$，然后做整数的取位处理即可。</p>
+<p><strong>技巧</strong>：</p>
+<p>对于$\%$运算，取最后一位</p>
+<p>对于$/$运算，取除当前位的其他所有位…..</p>
+<p>（小声：这TM不就是常识…做题太少……）</p>
+<p>3.代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> t, n, cnt;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">6</span>];<span class="comment">//保存答案</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   IOS</span><br><span class="line">   <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">   <span class="keyword">while</span>(t--) &#123;</span><br><span class="line">      cnt = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">int</span> d = <span class="number">1</span>;</span><br><span class="line">      <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">      <span class="keyword">while</span>(n) &#123;</span><br><span class="line">         <span class="keyword">if</span>(n % <span class="number">10</span>) &#123;</span><br><span class="line">            a[cnt++] = n % <span class="number">10</span> * d;</span><br><span class="line">         &#125;</span><br><span class="line">         d *= <span class="number">10</span>;</span><br><span class="line">         n /= <span class="number">10</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; cnt &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; i++) &#123;</span><br><span class="line">         <span class="built_in">cout</span> &lt;&lt; a[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">      <span class="comment">/* while(n) &#123;</span></span><br><span class="line"><span class="comment">         cout &lt;&lt; "###" &lt;&lt; n % 10 &lt;&lt; endl;</span></span><br><span class="line"><span class="comment">         cout &lt;&lt; "$$$" &lt;&lt; n / 10 &lt;&lt; endl;</span></span><br><span class="line"><span class="comment">         n /= 10;</span></span><br><span class="line"><span class="comment">         cout &lt;&lt; "The answer about n:" &lt;&lt; n &lt;&lt; endl;</span></span><br><span class="line"><span class="comment">      &#125; */</span> </span><br><span class="line">   &#125;</span><br><span class="line">   system(<span class="string">"pause"</span>);</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="B-Same-Parity-Summands"><a href="#B-Same-Parity-Summands" class="headerlink" title="B:Same Parity Summands"></a>B:Same Parity Summands</h3><p>1.题目描述</p>
+<p><em>input:</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2.思路：</p>
+<p>3.代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="C"><a href="#C" class="headerlink" title="C:"></a>C:</h3><p>1.题目描述</p>
+<p><em>input：</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><em>output：</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2.思路：</p>
+<p>3.代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="D"><a href="#D" class="headerlink" title="D:"></a>D:</h3><p>1.题目描述：</p>
+<p><em>input:</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2.思路</p>
+<p>3.代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Codeforces</category>
+      </categories>
+      <tags>
+        <tag>构造</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Codeforces-Round-636-Div-3</title>
     <url>/2020/04/26/Codeforces-Round-636-Div-3/</url>
-    <content><![CDATA[<p>菜鸡的$div2$补题现场……</p>
+    <content><![CDATA[<p>菜鸡的$div3$补题现场……</p>
 <a id="more"></a>
 <h3 id="A-Candies"><a href="#A-Candies" class="headerlink" title="A:Candies"></a>A:Candies</h3><p>1.题目描述：</p>
 <p>给你一个n, 让你找到满足$x + 2x + 4x + \dots + 2^{k-1} x = n $ 的$x$整数值。其中 $k &gt; 1$</p>
@@ -81,8 +199,8 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
-        <tag>思维</tag>
         <tag>构造</tag>
+        <tag>思维</tag>
         <tag>贪心</tag>
         <tag>DP</tag>
       </tags>
@@ -165,8 +283,8 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
-        <tag>思维</tag>
         <tag>构造</tag>
+        <tag>思维</tag>
         <tag>前缀和</tag>
       </tags>
   </entry>
