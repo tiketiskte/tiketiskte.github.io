@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Codeforces-Round-650-Div-3</title>
+    <url>/2020/06/17/Codeforces-Round-650-Div-3/</url>
+    <content><![CDATA[<p>菜鸡的$div3$补题现场……</p>
+<a id="more"></a>
+<h3 id="A-Short-Substrings"><a href="#A-Short-Substrings" class="headerlink" title="A:Short Substrings"></a>A:Short Substrings</h3><ul>
+<li>思路：</li>
+</ul>
+<p>输出头尾 然后两个一组输出即可。</p>
+<ul>
+<li>代码：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> t;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> a, b;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; b;</span><br><span class="line">    <span class="keyword">int</span> len = b.length();</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; b[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len - <span class="number">1</span>; i +=<span class="number">2</span>) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; b[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; b[len - <span class="number">1</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   IOS</span><br><span class="line">   <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">   <span class="keyword">while</span>(t--) &#123;</span><br><span class="line">       solve();</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//    system("pause");</span></span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="B-Even-Array"><a href="#B-Even-Array" class="headerlink" title="B:Even Array"></a>B:Even Array</h3><ul>
+<li>思路:</li>
+</ul>
+<p>分别判断两组的$cnt$是否一样 如果一样 则可以互换$cnt$次，否则，输出$-1$</p>
+<p>注意分开判断 一起判断不能确定能否互换。</p>
+<ul>
+<li>代码:<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">40</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> t;</span><br><span class="line"><span class="keyword">int</span> n, a[maxn];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt1 = <span class="number">0</span>, cnt2 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i % <span class="number">2</span> == <span class="number">0</span> &amp;&amp; a[i] % <span class="number">2</span> != <span class="number">0</span>) &#123;</span><br><span class="line">            cnt1++;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(i % <span class="number">2</span> != <span class="number">0</span> &amp;&amp; a[i] % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">            cnt2++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(cnt1 == cnt2) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; cnt1 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"-1"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   IOS</span><br><span class="line">   <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">   <span class="keyword">while</span>(t--) &#123;</span><br><span class="line">       <span class="built_in">memset</span>(a, <span class="number">0</span>, <span class="keyword">sizeof</span>(a));</span><br><span class="line">       <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">           <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">       &#125;</span><br><span class="line">       solve();</span><br><span class="line">   &#125;</span><br><span class="line">   system(<span class="string">"pause"</span>);</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="C-Social-Distance"><a href="#C-Social-Distance" class="headerlink" title="C:Social Distance"></a>C:Social Distance</h3><ul>
+<li>思路:</li>
+</ul>
+<ul>
+<li>代码:<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Codeforces</category>
+      </categories>
+      <tags>
+        <tag>模拟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Codeforces-Round-649-Div-2</title>
+    <url>/2020/06/14/Codeforces-Round-649-Div-2/</url>
+    <content><![CDATA[<p>菜鸡的$div2$补题现场……</p>
+<a id="more"></a>
+<h3 id="A-XXXXX"><a href="#A-XXXXX" class="headerlink" title="A:XXXXX"></a>A:XXXXX</h3><ul>
+<li>思路：</li>
+</ul>
+<p>考虑最长子序列和不被$x$整除，当序列中每一个数都可以被$x$整除时，显然，输出$-1$。当序列和$sum$不可以被$x$整除时，显然，最长的长度为$n。</p>
+<p>显然，还剩余一种情况，就是在开头或者结尾删除一些元素，使其$sum$不能被$x$整除。既然要求最长子序列和，我们可以考虑删除最少的，每一次删除判断一下是否满足当前$sum$能否不整除$x$.然后我们$ans$取最大就行辣</p>
+<p>注意更新当前$sum$也就是$now$，要求最大及时$break$出来。</p>
+<ul>
+<li>代码：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> t;</span><br><span class="line"><span class="keyword">int</span> a[maxn];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, x;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>, tmp;</span><br><span class="line">    ll sum = <span class="number">0</span>, now = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; x;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">        sum += a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(sum % x == <span class="number">0</span>) &#123;</span><br><span class="line">        tmp = n;</span><br><span class="line">        now = sum;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            now -= a[i];</span><br><span class="line">            tmp--;</span><br><span class="line">            <span class="keyword">if</span>(now % x) &#123;</span><br><span class="line">                ans = <span class="built_in">max</span>(ans, tmp);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        tmp = n;</span><br><span class="line">        now = sum;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = n; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">            now -= a[i];</span><br><span class="line">            tmp--;</span><br><span class="line">            <span class="keyword">if</span>(now % x) &#123;</span><br><span class="line">                ans = <span class="built_in">max</span>(ans, tmp);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(ans == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">"-1"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; n &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   IOS</span><br><span class="line">   <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">   <span class="keyword">while</span>(t--) &#123;</span><br><span class="line">       solve();</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//    system("pause");</span></span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="B-Most-socially-distanced-subsequence"><a href="#B-Most-socially-distanced-subsequence" class="headerlink" title="B:Most socially-distanced subsequence"></a>B:Most socially-distanced subsequence</h3><ul>
+<li>思路:</li>
+</ul>
+<p>考虑删除某些元素,使得条件成立。</p>
+<p>如果一个序列满足子序列的差值最大，则应该保留转折点处的值。</p>
+<p>就如果升序，则中间的值可以删除，保证最小。如果降序，同理可以删除。于是我们只需要考虑转折点即可。</p>
+<p>同时保留首尾元素。因为其左右没有比它更大/更小的元素了。</p>
+<p>用一个$vector$表示，注意循环$i$的范围，避免越界。</p>
+<ul>
+<li>代码:</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> t, n, p[maxn];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">    v.<span class="built_in">clear</span>();</span><br><span class="line">    <span class="built_in">memset</span>(p, <span class="number">0</span>, <span class="keyword">sizeof</span>(p));</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; p[i];</span><br><span class="line">    &#125;</span><br><span class="line">    v.push_back(p[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>((p[i] &gt;= p[i - <span class="number">1</span>] &amp;&amp; p[i] &gt;= p[i + <span class="number">1</span>]) || (p[i] &lt;= p[i - <span class="number">1</span>] &amp;&amp; p[i] &lt;= p[i + <span class="number">1</span>])) &#123;</span><br><span class="line">            v.push_back(p[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    v.push_back(p[n]);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; v.<span class="built_in">size</span>() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span>(it = v.<span class="built_in">begin</span>(); it != v.<span class="built_in">end</span>(); it++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   IOS</span><br><span class="line">   <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">   <span class="keyword">while</span>(t--) &#123;</span><br><span class="line">       solve();</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//    system("pause");</span></span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Codeforces</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>nowcoder-入门课2</title>
+    <url>/2020/06/12/nowcoder-%E5%85%A5%E9%97%A8%E8%AF%BE2/</url>
+    <content><![CDATA[<p>递归 分治 STL </p>
+<a id="more"></a>
+<h3 id="POJ3714-Raid"><a href="#POJ3714-Raid" class="headerlink" title="POJ3714: Raid"></a>POJ3714: Raid</h3><p>思路:</p>
+<p>求平面内最短欧几里得距离的问题。</p>
+<p>采用分治策略进行求解。</p>
+<p>先对第一关键字$x$进行排序,在对第二关键字$y$进行排序。</p>
+<p>代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="UVA11020-Efficient-Solutions"><a href="#UVA11020-Efficient-Solutions" class="headerlink" title="UVA11020: Efficient Solutions"></a>UVA11020: Efficient Solutions</h3><p>思路:</p>
+<p>代码：</p>
+]]></content>
+      <categories>
+        <category>nowcoder</category>
+      </categories>
+  </entry>
+  <entry>
     <title>nowcoder_入门课1</title>
     <url>/2020/05/20/nowcoder-%E5%85%A5%E9%97%A8%E8%AF%BE1/</url>
     <content><![CDATA[<p>枚举 贪心 暴力 前缀和</p>
@@ -206,9 +292,9 @@ r_i = max(r_{i + 1},sum_{i + k - 1} - sum_{i - 1})</script><p>注意数据范围
         <category>nowcoder</category>
       </categories>
       <tags>
-        <tag>前缀和</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
+        <tag>前缀和</tag>
         <tag>枚举</tag>
       </tags>
   </entry>
@@ -351,9 +437,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
+        <tag>贪心</tag>
         <tag>构造</tag>
         <tag>思维</tag>
-        <tag>贪心</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -558,9 +644,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
