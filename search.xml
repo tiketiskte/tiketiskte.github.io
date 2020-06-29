@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>STL之nth_element用法</title>
+    <url>/2020/06/29/STL%E4%B9%8Bnth-element%E7%94%A8%E6%B3%95/</url>
+    <content><![CDATA[<p>做题的时候遇到了一个有意思的问题 </p>
+<p>问:</p>
+<p>给你一个序列 让你求第k大数。</p>
+<p>STL库里有直接可以对这个进行操作的函数，今天来梳理一下…</p>
+<a id="more"></a>
+<h3 id="nth-element介绍"><a href="#nth-element介绍" class="headerlink" title="nth_element介绍"></a>nth_element介绍</h3><p>nth_element是一种部分排序算法。<br>返回值为void类型，返回部分排序后的原数组。</p>
+<p>调用为:<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">nth_element(first, nth, last, camp);</span><br></pre></td></tr></table></figure><br>其中，first和last是排序范围</p>
+<p>camp是按什么顺序来比较。默认从小到大。</p>
+<p>nth是排序的位置。术语叫做 排序分区点.</p>
+<p>并没有对原数组进行完全排序，只是把下标为nth的元素放在了正确的位置。</p>
+<p>同时满足nth左边的元素都小于等于它，右边的元素都大于等于它。（默认升序）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//常用的几种形式</span></span><br><span class="line"><span class="comment">//1.求第k小数</span></span><br><span class="line">nth_element(v.<span class="built_in">begin</span>(), v.<span class="built_in">begin</span>() + (k - <span class="number">1</span>), v.<span class="built_in">end</span>())</span><br><span class="line"><span class="comment">//2.求第k大数</span></span><br><span class="line">nth_element(v.<span class="built_in">begin</span>(), v.<span class="built_in">begin</span>() + (n - k), v.<span class="built_in">end</span>(), greater&lt;<span class="keyword">int</span>&gt;())</span><br><span class="line"><span class="comment">//3.求第k大数</span></span><br></pre></td></tr></table></figure>
+<p>两种情况 ：</p>
+<ul>
+<li>求一个序列的第k小数</li>
+</ul>
+<p>我们可以直接通过调用来完成，因为本身就是按照升序排列。</p>
+<p>在这里我们需要注意如果使用容器或数组来进行时，下标的值如果从0开始，则我们求第k小数时，第k小数的下标是k - 1</p>
+<p>示例 :</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//求第k小数 k = 3 </span></span><br><span class="line"><span class="comment">//注意下标范围 nth_element中写下标位置 即为 k - 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; i++) &#123;</span><br><span class="line">		v.push_back(i);</span><br><span class="line">	&#125;</span><br><span class="line">	random_shuffle(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>());</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; v[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	nth_element(v.<span class="built_in">begin</span>(), v.<span class="built_in">begin</span>() + <span class="number">2</span>, v.<span class="built_in">end</span>());</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; v[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; v[<span class="number">2</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>求一个序列的第k小数</li>
+</ul>
+<p>同理， 我们可以采用两种方案来解决</p>
+<p>1.转换成序列按照升序排列 利用$cmp$或greater<int>()替换即可</int></p>
+<p>示例:<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//同理</span></span><br><span class="line"><span class="comment">//求第k大数 k = 3 </span></span><br><span class="line"><span class="comment">//注意下标范围 nth_element中写下标位置 即为 k - 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; i++) &#123;</span><br><span class="line">		v.push_back(i);</span><br><span class="line">	&#125;</span><br><span class="line">	random_shuffle(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>());</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; v[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	nth_element(v.<span class="built_in">begin</span>(), v.<span class="built_in">begin</span>() + <span class="number">2</span>, v.<span class="built_in">end</span>(), greater&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; v[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; v[<span class="number">2</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>2.求第k大数 即转换为求第$n - k + 1$小数。</p>
+<p>此时下标为 n - k.即最后的数是$v[n - k]$</p>
+<p>示例:<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//写法1：</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; i++) &#123;</span><br><span class="line">		v.push_back(i);</span><br><span class="line">	&#125;</span><br><span class="line">	random_shuffle(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>());</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; v[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">int</span> n = v.<span class="built_in">size</span>();<span class="comment">//利用转换</span></span><br><span class="line">	nth_element(v.<span class="built_in">begin</span>(), v.<span class="built_in">begin</span>() + (n - <span class="number">3</span>), v.<span class="built_in">end</span>());</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; v[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; v[n - <span class="number">3</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//写法2：</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; i++) &#123;</span><br><span class="line">		v.push_back(i);</span><br><span class="line">	&#125;</span><br><span class="line">	random_shuffle(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>());</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; v[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">int</span> n = v.<span class="built_in">size</span>();</span><br><span class="line">	nth_element(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>() - <span class="number">3</span>, v.<span class="built_in">end</span>());</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">8</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; v[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; v[n - <span class="number">3</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
+<li><a href="http://www.cplusplus.com/reference/algorithm/nth_element/" target="_blank" rel="noopener">http://www.cplusplus.com/reference/algorithm/nth_element/</a></li>
+<li><a href="https://en.cppreference.com/w/cpp/algorithm/nth_element" target="_blank" rel="noopener">https://en.cppreference.com/w/cpp/algorithm/nth_element</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Codeforces-Round-650-Div-3</title>
     <url>/2020/06/17/Codeforces-Round-650-Div-3/</url>
     <content><![CDATA[<p>菜鸡的$div3$补题现场……</p>
@@ -298,9 +341,9 @@ r_i = max(r_{i + 1},sum_{i + k - 1} - sum_{i - 1})</script><p>注意数据范围
         <category>nowcoder</category>
       </categories>
       <tags>
-        <tag>前缀和</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
+        <tag>前缀和</tag>
         <tag>枚举</tag>
       </tags>
   </entry>
@@ -443,9 +486,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
+        <tag>贪心</tag>
         <tag>构造</tag>
         <tag>思维</tag>
-        <tag>贪心</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -650,9 +693,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
