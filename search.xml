@@ -1,6 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>VSCode配置</title>
+    <url>/2020/06/30/VSCode%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>VScode 全称：<strong>Visual Studio Code</strong></p>
+<p>是一种代码编辑器，并不是一种IDE </p>
+<p>以下配置都是基于Windows系统而成，对于Mac以及Linux建议参考官方文档……（其实是我不会太菜辽呜呜呜~）</p>
+<p>作为主写C++的我 自然要对其进行一番配置 主要配置内容以及过程如下</p>
+<a id="more"></a>
+<h3 id="配置电脑C-编译运行环境"><a href="#配置电脑C-编译运行环境" class="headerlink" title="配置电脑C++编译运行环境"></a>配置电脑C++编译运行环境</h3><p>推荐<a href="https://sourceforge.net/projects/mingw-w64/files/" target="_blank" rel="noopener"><strong>MinGw</strong></a> 作为Windows上的主流C++编译器。</p>
+<p>MinGW可以下载Online Installer然后选择对应的版本号进行安装，在这里可以选择<code>8.1.0</code>, <code>posix</code>和<code>seh</code>。对于不同版本的对比可以参考这篇<a href="https://stackoverflow.com/questions/29947302/meaning-of-options-in-mingw-w64-installer" target="_blank" rel="noopener">StackOverflow</a>。</p>
+<p>安装完成后将<code>MinGW安装目录/bin</code>文件夹（例如<code>D:\mingw64\bin</code>）加入环境变量，具体可以参考<a href="https://www.eclipse.org/4diac/documentation/html/installation/minGW.html" target="_blank" rel="noopener">这篇文档</a>。加入环境变量后重新开启一个命令行然后输入<code>g++ --version</code>就可以看到安装好的MinGW的版本号了。</p>
+<h3 id="安装并配置C-插件"><a href="#安装并配置C-插件" class="headerlink" title="安装并配置C++插件"></a>安装并配置C++插件</h3><p>在vscode的插件商店中 选择<code>C/C++ for Visual Studio Code</code>插件以及<code>code run</code>插件等。</p>
+<h4 id="配置IntelliSence"><a href="#配置IntelliSence" class="headerlink" title="配置IntelliSence"></a>配置IntelliSence</h4><p>建立一个写代码的文件夹 建议在二级目录下，在VS Code中打开，然后在VS Code中按<code>Ctrl + Shift + P</code>输入命令<code>C/C++: Edit Configurations...</code>，VS Code会自动在项目文件夹根目录新建配置文件夹<code>.vscode</code>并同时在<code>.vscode</code>中新建配置文件<code>c_cpp_properties.json</code></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"Win32"</span>,</span><br><span class="line">            <span class="attr">"includePath"</span>: [</span><br><span class="line">                <span class="string">"$&#123;workspaceFolder&#125;/**"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"defines"</span>: [</span><br><span class="line">                <span class="string">"_DEBUG"</span>,</span><br><span class="line">                <span class="string">"UNICODE"</span>,</span><br><span class="line">                <span class="string">"_UNICODE"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"compilerPath"</span>: <span class="string">"D:/mingw64/bin/gcc.exe"</span>, </span><br><span class="line">            <span class="attr">"cStandard"</span>: <span class="string">"c11"</span>,</span><br><span class="line">            <span class="attr">"cppStandard"</span>: <span class="string">"c++17"</span>,</span><br><span class="line">            <span class="attr">"intelliSenseMode"</span>: <span class="string">"gcc-x64"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"version"</span>: <span class="number">4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后介绍其中重要的部分：</p>
+<p><code>c_cpp_properties.json</code>中共包含三部分：</p>
+<p><code>env</code>：可以在这里定义用户变量，在下面的<code>configuration</code>中可以使用这里定义的变量来代替多次重复出现的地址等配置。</p>
+<p><code>configurations</code>：在这里配置IntelliSence选项。每一个选项都会有默认值。</p>
+<p><code>version</code>：指<code>c_cpp_properties.json</code>的版本，这里不需要作修改。</p>
+<p><code>configurations</code>中包含以下配置项：</p>
+<p><code>name</code>：配置文件名称，在这里如果根据系统填”Linux”, “Mac”或者”Win32”，那么插件会自动根据这里填写的系统名称来读取默认值。在VS Code的状态栏中会显示这一配置名称。通过点击状态栏中的名称可以更换配置。在这里我们指定为<code>Win32</code>。</p>
+<p><code>intelliSenseMode</code>：如果插件设置中<code>C_Cpp.intelliSenseEngine</code>设置为”default”的话，这里可以指定IntelliSence的模式。<code>msvc-x64</code>对应Visual Studio模式，<code>clang-x64</code>对应Clang模式，<code>gcc-x64</code>对应GCC模式。Windows默认使用<code>msvc-x64</code>，macOS默认使用<code>clang-x64</code>，Linux默认使用<code>gcc-x64</code>，在这里由于我们用的是GCC，因此修改为<code>gcc-x64</code>。</p>
+<p><code>includePath</code>：指定IntelliSence在目录中搜索源文件所包含（<code>#include</code>）的头文件。这与在命令行中调用编译器时用<code>-I</code>选项指定的路径是一样的。如果路径末尾是<code>/**</code>的话IntelliSence会自动加载所有的子目录。如果是Windows系统并且安装了Visual Studio 的C++功能，或者配置了<code>compilePath</code>，这里可以不做配置。</p>
+<p><code>macFramePath</code>：同上，指定macOS框架的头文件目录地址。</p>
+<p><code>defines</code>：这里可以指定在编译过程中所调用的预处理符号的内容，与命令行调用编译器时<code>-D</code>选项指定的内容是一样的。如果是Windows系统并且安装了Visual Studio 的C++功能，或者配置了<code>compilePath</code>，这里可以不做配置。</p>
+<p><code>forceInclude</code>：（可选）强制加载的头文件，优先于源文件中指定的头文件，按照配置文件里的顺序加载，这里不需要配置。</p>
+<p><code>compilerPath</code> ：（可选）编译器的绝对路径。插件会根据编译器决定<code>includePath</code>和default <code>define</code>的值。可以在路径后附加选项，例如<code>-nostdinc++</code>, <code>-m32</code>, <code>-fno-ms-extensions</code>等等。如果选项有空格需要用双引号（<code>“</code>）括起来。这里需要找到刚才安装的MinGW中<code>gcc.exe</code>的位置，例如<code>C:/Dev/MinGW/mingw64/bin/gcc.exe</code>。</p>
+<p><code>cStandard</code>：C的标准，这里填<code>c11</code>。</p>
+<p><code>cppStadard</code>：C++的标准，这里填<code>cpp17</code>。</p>
+<p><strong>参考资料</strong>:<a href="https://code.visualstudio.com/docs/cpp/c-cpp-properties-schema-reference" target="_blank" rel="noopener">https://code.visualstudio.com/docs/cpp/c-cpp-properties-schema-reference</a></p>
+<h4 id="配置编译选项"><a href="#配置编译选项" class="headerlink" title="配置编译选项"></a>配置编译选项</h4><p>VS Code通过<a href="https://code.visualstudio.com/docs/editor/tasks" target="_blank" rel="noopener">Tasks</a>来执行编译和运行操作。在<code>.vscode</code>文件夹中新建文件<code>tasks.json</code>进行配置。或者以上以下操作都可以先写一个C++文件然后运行修改即可</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"tasks"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"label"</span>: <span class="string">"Build"</span>,</span><br><span class="line">            <span class="attr">"command"</span>: <span class="string">"D:/mingw64/bin/g++.exe"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"shell"</span>,</span><br><span class="line">            <span class="attr">"args"</span>: [</span><br><span class="line">                <span class="string">"-g"</span>,</span><br><span class="line">                <span class="string">"-Wall"</span>,</span><br><span class="line">                <span class="string">"-std=c++11"</span>,</span><br><span class="line">                <span class="string">"-lm"</span>,</span><br><span class="line">                <span class="string">"$&#123;file&#125;"</span>,</span><br><span class="line">                <span class="string">"-o"</span>,</span><br><span class="line">                <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"presentation"</span>: &#123;</span><br><span class="line">                <span class="attr">"reveal"</span>: <span class="string">"always"</span>,</span><br><span class="line">                <span class="attr">"echo"</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="attr">"focus"</span>: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"problemMatcher"</span>: &#123;</span><br><span class="line">                <span class="attr">"owner"</span>: <span class="string">"cpp"</span>,</span><br><span class="line">                <span class="attr">"fileLocation"</span>: [<span class="string">"relative"</span>, <span class="string">"$&#123;workspaceRoot&#125;"</span>],</span><br><span class="line">                <span class="attr">"pattern"</span>: &#123;</span><br><span class="line">                    <span class="attr">"regexp"</span>: <span class="string">"^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$"</span>,</span><br><span class="line">                    <span class="attr">"file"</span>: <span class="number">1</span>,</span><br><span class="line">                    <span class="attr">"line"</span>: <span class="number">2</span>,</span><br><span class="line">                    <span class="attr">"column"</span>: <span class="number">3</span>,</span><br><span class="line">                    <span class="attr">"severity"</span>: <span class="number">4</span>,</span><br><span class="line">                    <span class="attr">"message"</span>: <span class="number">5</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"group"</span>: &#123;</span><br><span class="line">                <span class="attr">"kind"</span>: <span class="string">"build"</span>,</span><br><span class="line">                <span class="attr">"isDefault"</span>: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"label"</span>: <span class="string">"Run"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"shell"</span>,</span><br><span class="line">            <span class="attr">"dependsOn"</span>: <span class="string">"Build"</span>,</span><br><span class="line">            <span class="attr">"command"</span>: <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.o"</span>,</span><br><span class="line">            <span class="attr">"windows"</span>: &#123;</span><br><span class="line">                <span class="attr">"command"</span>: <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"args"</span>: [],</span><br><span class="line">            <span class="attr">"presentation"</span>: &#123;</span><br><span class="line">                <span class="attr">"reveal"</span>: <span class="string">"always"</span>,</span><br><span class="line">                <span class="attr">"focus"</span>: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"problemMatcher"</span>: [],</span><br><span class="line">            <span class="attr">"group"</span>: &#123;</span><br><span class="line">                <span class="attr">"kind"</span>: <span class="string">"test"</span>,</span><br><span class="line">                <span class="attr">"isDefault"</span>: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后介绍其中重要的部分：</p>
+<p><code>label</code>：任务标签。</p>
+<p><code>type</code>：任务类型，一般指定为<code>shell</code>或<code>process</code>。当设置为<code>shell</code>时会将命令看作终端操作，包括bash、cmd或PowerShell。当指定为<code>process</code>时会将命令看作是一个进程。这里选择<code>shell</code>。</p>
+<p><code>command</code>：命令内容，这里指定编译器的路径，比如g++的路径<code>C:/Dev/MinGW/mingw64/bin/g++.exe</code>。</p>
+<p><code>args</code>：命令的参数列表。</p>
+<p><code>windows</code>：Windows特定的配置属性，例如macOS和Linux上指定编译的输出文件为<code>.o</code>，而Windows下指定编译的输出文件为<code>.exe</code>。</p>
+<p><code>group</code>：指定任务的分组归属。例如指定<code>group</code>为<code>test</code>，那么可以通过命令面板的<code>Run Test Task</code>运行该任务。</p>
+<p><code>presentation</code>：指定如何在界面上显示任务输出。</p>
+<p> <code>reveal</code>：在执行任务时是否显示内置的终端面板，可选的值包括：<code>always</code>：始终显示；<code>never</code>：从不显示；<code>silent</code>：只在不扫描错误和警告时显示。默认值为<code>always</code>。</p>
+<p> <code>focus</code>：终端是否在输入时激活。默认值为<code>false</code>。</p>
+<p> <code>echo</code>：是否将执行的命令输出到终端中。默认值为<code>true</code>。</p>
+<p> <code>showReuseMessage</code>：是否显示”终端将被任务重用，按任意键关闭。“这一消息。</p>
+<p> <code>panel</code>：控制是否在各任务间共享终端输出。</p>
+<p> <code>shared</code>：共享终端，所有任务的输出都会在同一个终端内显示。</p>
+<p> <code>dedicated</code>：每一个任务都有自己的输出终端，但是对于同一个任务来说，如果被重复执行的话仍会在同一个终端内显示。</p>
+<p> <code>new</code>：无论是否是同一个任务都会打开一个新的输出终端。</p>
+<p> <code>clear</code>：在任务执行之前是否清空输出终端，默认值为<code>false</code>。</p>
+<p> <code>group</code>：指定任务输出的分组，同一个分组的任务会共享终端而非开启新终端。</p>
+<p><code>problemMatcher</code>：将编译器输出的错误映射至VS Code的问题面板。具体可以参考<a href="https://code.visualstudio.com/docs/editor/tasks#_defining-a-problem-matcher" target="_blank" rel="noopener">Defining a problem matcher</a>。</p>
+<h4 id="配置Debug选项"><a href="#配置Debug选项" class="headerlink" title="配置Debug选项"></a>配置Debug选项</h4><p>如果要启用Debug，需要在.vscode文件夹下创建<code>launch.json</code></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Use IntelliSense to learn about possible attributes.</span></span><br><span class="line">    <span class="comment">// Hover to view descriptions of existing attributes.</span></span><br><span class="line">    <span class="comment">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span></span><br><span class="line">    <span class="comment">// https://github.com/Microsoft/vscode-cpptools/blob/master/launch.md</span></span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"0.2.0"</span>,</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"Python: 当前文件"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"python"</span>,</span><br><span class="line">            <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">            <span class="attr">"program"</span>: <span class="string">"$&#123;file&#125;"</span>,</span><br><span class="line">            <span class="attr">"console"</span>: <span class="string">"integratedTerminal"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"(gdb) Launch"</span>, <span class="comment">// 配置名称，将会在启动配置的下拉菜单中显示</span></span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"cppdbg"</span>, <span class="comment">// 配置类型，这里只能为cppdbg</span></span><br><span class="line">            <span class="attr">"request"</span>: <span class="string">"launch"</span>, <span class="comment">// 请求配置类型，可以为launch（启动）或attach（附加）</span></span><br><span class="line">            <span class="attr">"program"</span>: <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.o"</span>, <span class="comment">// 将要进行调试的程序的路径</span></span><br><span class="line">            <span class="attr">"args"</span>: [],</span><br><span class="line">            <span class="attr">"stopAtEntry"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">"cwd"</span>: <span class="string">"$&#123;workspaceFolder&#125;"</span>,</span><br><span class="line">            <span class="attr">"externalConsole"</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">"environment"</span>: [],</span><br><span class="line">            <span class="attr">"MIMode"</span>: <span class="string">"gdb"</span>,</span><br><span class="line">            <span class="attr">"windows"</span>: &#123;</span><br><span class="line">                <span class="attr">"program"</span>: <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe"</span>,</span><br><span class="line">                <span class="attr">"miDebuggerPath"</span>: <span class="string">"D:/mingw64/bin/gdb.exe"</span> <span class="comment">// 修改为本机gdb.exe的路径</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"setupCommands"</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"description"</span>: <span class="string">"Enable pretty-printing for gdb"</span>,</span><br><span class="line">                    <span class="attr">"text"</span>: <span class="string">"-enable-pretty-printing"</span>,</span><br><span class="line">                    <span class="attr">"ignoreFailures"</span>: <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"preLaunchTask"</span>: <span class="string">"Build"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后介绍其中重要的部分：</p>
+<p><code>program</code>：（必填项）指定Debugger程序路径，在这里修改成本机gdb.exe的路径。</p>
+<p><code>symbolSearchPath</code>：指定符号文件的路径。</p>
+<p><code>externalConsole</code>：在Windows中，设置为<code>true</code>调用外部终端，设置为<code>false</code>调用VS Code集成终端；在Linux中，设置为<code>true</code>调用会通知VS Code启动外部终端，设置为<code>false</code>会调用VS Code集成终端；在macOS中，设置为<code>true</code>会通过<code>lldb-mi</code>调用外部终端，设置为<code>false</code>会在Debug面板中显示输出。</p>
+<p><code>args</code>：参数列表。</p>
+<p><code>cwd</code>：终端启动时所在的路径。</p>
+<p><code>environment</code>：环境变量。</p>
+<p><code>MIMode</code>：指定VS Code连接的Debugger的类型，必须是<code>gdb</code>或者<code>lldb</code>中一种。</p>
+<p><code>miDebuggerPath</code>：Debugger路径。如果没有指定完整路径，VS Code会搜索系统变量<code>PATH</code>。</p>
+<p><code>miDebuggerArgs</code>：传递给Debugger的参数列表。</p>
+<p><code>stopAtEntry</code>：是否在程序入口暂停。默认值为<code>false</code>。</p>
+<p><code>type</code>：指定Debugger类型，对于Visual Studio Windows debugger需要指定为<code>cppvsdbg</code>，对于GDB或者LLDB需要指定为<code>cppdbg</code>.</p>
+<p><strong>参考资料:</strong><a href="https://code.visualstudio.com/docs/cpp/launch-json-reference" target="_blank" rel="noopener">https://code.visualstudio.com/docs/cpp/launch-json-reference</a></p>
+<h4 id="设置代码格式化"><a href="#设置代码格式化" class="headerlink" title="设置代码格式化"></a>设置代码格式化</h4><p>这一部分我没有具体配置 可参考：</p>
+<p>在VS Code里可以通过<code>Shift + ALt + F</code>对整篇代码进行格式化，或者选中一段代码通过<code>Ctrl + K Ctrl + F</code>来进行段落的格式化。也可以在设置中设置<code>editor.formatOnSave</code>设定在保存时自动格式化或<code>editor.formatOnType</code>设定在输入时自动格式化。默认VS Code调用Clang Format对代码进行格式化，因此在项目文件夹下新建<code>.clang-format</code>文件来指定格式化样式。由于Clang Format可以设置的项目非常多，因此这里只举例说明：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UseTab: false</span><br><span class="line">IndentWidth: 4</span><br><span class="line">BreakBeforeBraces: Stroustrup </span><br><span class="line">AllowShortIfStatementsOnASingleLine: false</span><br><span class="line">IndentCaseLabels: true</span><br><span class="line">ColumnLimit: 0</span><br><span class="line">Standard: Cpp11</span><br><span class="line">Cpp11BracedListStyle: true</span><br></pre></td></tr></table></figure>
+<p>然后介绍其中重要的部分：</p>
+<p><code>UseTab</code>：用Tab或空格控制缩进。</p>
+<p><code>IndentWidth</code>：缩进长度。</p>
+<p><code>BreakBeforeBraces</code>：在括号前是否换行。</p>
+<p><code>AllowShortIfStatementsOnASingleLine</code>：是否将 <code>if (a) return;</code>放在同一行。</p>
+<p><code>IndentCaseLabels</code>：对于<code>switch</code>语句，<code>case</code>是否缩进。</p>
+<p><code>ColumnLimit</code>：限制一行的长度。</p>
+<p><code>Standard</code>：cpp标准，<code>Cpp03</code>会适应C++03标准，<code>cpp11</code>会适应C++11、C++14和C++17标准。例如， C++03标准的<code>A&lt;A&lt;int&gt; &gt;</code>会被替换为C++11标准的<code>A&lt;A&lt;int&gt;&gt;</code>。</p>
+<p><code>Cpp11BracedListStyle</code>：使用C++11的列表格式</p>
+<h3 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h3><p>完成以上步骤以后你会得到一个<code>.vscode</code>文件夹（包含三个配置文件）以及<code>.clang-format文件</code>。之后再新建项目时直接将这个文件夹复制过去即可。</p>
+<p>打开一个<code>.cpp</code>文件然后按<code>F5</code>即可启动调试。按<code>Ctrl + Shift + P</code>然后输入<code>Run Build Task</code>即可编译。输入<code>Run Test Task</code>即可运行。在设置中可以为这两个选项添加快捷键绑定。按<code>Ctrl + Shift + F</code>可以格式化代码。</p>
+<p>以上。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://zhuanlan.zhihu.com/p/35178331" target="_blank" rel="noopener">VS Code 搭建 C/C++ 编译运行环境的三种方案</a></p>
+<p><a href="https://code.visualstudio.com/docs/languages/cpp" target="_blank" rel="noopener">C/C++ for Visual Studio Code (Preview)</a></p>
+<p><a href="https://github.com/Microsoft/vscode-cpptools/blob/master/Documentation/LanguageServer/c_cpp_properties.json.md" target="_blank" rel="noopener">c_cpp_properties.jsonReference Guide</a></p>
+<p><a href="https://github.com/Microsoft/vscode-cpptools/blob/master/launch.md" target="_blank" rel="noopener">Configuring launch.json for C/C++ debugging</a></p>
+<p><a href="https://code.visualstudio.com/docs/editor/variables-reference" target="_blank" rel="noopener">Variables Reference</a></p>
+<p><a href="https://code.visualstudio.com/docs/editor/intellisense#_customizing-intellisense" target="_blank" rel="noopener">Customizing IntelliSense</a></p>
+<p><a href="https://code.visualstudio.com/docs/editor/tasks" target="_blank" rel="noopener">Integrate with External Tools via Tasks</a></p>
+<p><a href="https://clang.llvm.org/docs/ClangFormatStyleOptions.html" target="_blank" rel="noopener">Clang-Format Style Options</a></p>
+]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+  </entry>
+  <entry>
     <title>STL之nth_element用法</title>
     <url>/2020/06/29/STL%E4%B9%8Bnth-element%E7%94%A8%E6%B3%95/</url>
     <content><![CDATA[<p>做题的时候遇到了一个有意思的问题 </p>
@@ -341,9 +435,9 @@ r_i = max(r_{i + 1},sum_{i + k - 1} - sum_{i - 1})</script><p>注意数据范围
         <category>nowcoder</category>
       </categories>
       <tags>
+        <tag>前缀和</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
-        <tag>前缀和</tag>
         <tag>枚举</tag>
       </tags>
   </entry>
@@ -486,9 +580,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
-        <tag>贪心</tag>
         <tag>构造</tag>
         <tag>思维</tag>
+        <tag>贪心</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -693,9 +787,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
+        <tag>构造</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
-        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
