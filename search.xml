@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>倍增</title>
+    <url>/2020/08/08/%E5%80%8D%E5%A2%9E/</url>
+    <content><![CDATA[<p>今天来介绍一种算法竞赛中对于问题优化的新技巧 - - <strong>倍增</strong></p>
+<a id="more"></a>
+<p>倍增主要是一种技巧可以大大优化时间复杂度的算法，主要常用来解决$RMQ$(区间最值)问题以及关于$LCA$(最近公共祖先)在树上倍增的技巧,以及对倍增的扩展 — <strong>ST表</strong></p>
+<h3 id="倍增初探"><a href="#倍增初探" class="headerlink" title="倍增初探"></a>倍增初探</h3><p>倍增，字面意思 成倍增长，主要是对于一些递推问题，如果其状态空间很大，无法满足复杂度要求，所以我们可以通过成倍增长来只递推状态空间中在$2$的整数次幂上的值作为代表，对于其他值，我们可以通过性质<code>任意整数可以表示成若干个2的次幂项的和</code> 来表示出整数。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 2 4 8 ... 2^k &#x2F;&#x2F; 2的幂次项</span><br><span class="line"></span><br><span class="line">1 ~ 2 ^ (k + 1) - 1 &#x2F;&#x2F; 可以表示的整数的范围</span><br></pre></td></tr></table></figure>
+<p>因此对于倍增算法，我们对其问题的状态空间关于$2$的·幂次要有可划分性。</p>
+<h3 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h3><p>给你一个长度为$N$的序列$A$,满足序列$A$中的所有元素都是正整数,然后进行$M$次询问,每次给定一个整数$T$,求出最大的$k$,满足$\sum_{i = 1}^k {A[i]} &lt;= T$.</p>
+<p>要求：算法必须是在线的 也就是说 必须收到一个询问就即时回答,不能收到$M$个询问后统一回答.</p>
+<p>假设: $0 &lt;= T &lt;= \sum_{i = 1}^N {A[i]}$</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
+<li>朴素做法：</li>
+</ol>
+<p>开一个变量$sum$，然后每次询问的时候从前往后扫一遍并且$sum$累加 $if$判断一下</p>
+<p>该算法与$T$有关 $T$越大,时间复杂度越高 最坏情况下 时间复杂度可以达到$O(n * m)$</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">int</span> a[maxn];</span><br><span class="line"><span class="keyword">int</span> ans;</span><br><span class="line">ll T, sum;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(m--) &#123;</span><br><span class="line">        sum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(sum + a[i] &gt;= T) &#123;</span><br><span class="line">                ans = i - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                sum += a[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>二分答案</li>
+</ol>
+<p>我们可以发现，既然序列$A$中的元素均为正整数，则对于其求前缀和可以求得一个单调递增的序列。即$\sum_{i = 1}^k {A[i]}$单调递增。</p>
+<p>因此满足答案的分段且单调的性质，故可以二分答案求解。</p>
+<p>二分答案找到中值点$mid$，计算$\sum_{i = 1}^{mid} {A[i]}$ 和$T$的大小关系</p>
+<script type="math/tex; mode=display">
+if(\sum_{i = 1}^{mid} {A[i]} < T) \qquad k >= mid;\\
+else \qquad k < mid;</script><p>更新二分区间范围 </p>
+<p>我们可以通过前缀和在$O(n)$的复杂度内求出来$sum[i]$，我们选择时，最少选$0$次,最多选$n$次,所以一共二分$O(log n)$次，与$T$无关。</p>
+<p>缺陷在于：当$T$很小时，二分次数保持不变，在一定程度上，性能劣与方法一。例如$N$取$1000000$时，$logn$约为$20$，若$T$为$1$，则显然方法一更优。</p>
+<p>总的时间复杂度：$O(logn * m)$ 常数较大qwq</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">int</span> a[maxn], b[maxn];</span><br><span class="line"><span class="keyword">int</span> ans;</span><br><span class="line">ll T, sum;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> mid)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b[mid];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    b[<span class="number">1</span>] = a[<span class="number">1</span>]; </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        b[i] = b[i - <span class="number">1</span>] + a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(m--) &#123;</span><br><span class="line">        sum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">1</span>, r = n;</span><br><span class="line">        <span class="keyword">while</span>(l &lt; r) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(check(mid) &lt; T) &#123;</span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                r = mid;</span><br><span class="line">            &#125;</span><br><span class="line">            ans = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>倍增优化</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>前缀和</tag>
+        <tag>倍增</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Monotone_Stack</title>
     <url>/2020/07/16/Monotone-Stack/</url>
     <content><![CDATA[<h3 id="Monotone-Stack"><a href="#Monotone-Stack" class="headerlink" title="Monotone Stack"></a>Monotone Stack</h3><p>中文名：单调栈</p>
@@ -472,9 +515,9 @@ r_i = max(r_{i + 1},sum_{i + k - 1} - sum_{i - 1})</script><p>注意数据范围
         <category>nowcoder</category>
       </categories>
       <tags>
+        <tag>前缀和</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
-        <tag>前缀和</tag>
         <tag>枚举</tag>
       </tags>
   </entry>
@@ -617,9 +660,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
-        <tag>贪心</tag>
         <tag>构造</tag>
         <tag>思维</tag>
+        <tag>贪心</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -824,9 +867,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
+        <tag>构造</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
-        <tag>构造</tag>
       </tags>
   </entry>
   <entry>

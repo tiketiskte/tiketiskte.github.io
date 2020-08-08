@@ -46,20 +46,20 @@
   };
 </script>
 
-  <meta name="description" content="问题描述A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is $9009 &#x3D; 91 × 99$. Find the largest palindrome made from the product of two 3-d">
+  <meta name="description" content="今天来介绍一种算法竞赛中对于问题优化的新技巧 - - 倍增">
 <meta property="og:type" content="article">
-<meta property="og:title" content="4.Largest palindrome product">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;11&#x2F;4-Largest-palindrome-product&#x2F;index.html">
+<meta property="og:title" content="倍增">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;08&#x2F;08&#x2F;%E5%80%8D%E5%A2%9E&#x2F;index.html">
 <meta property="og:site_name" content="tiketiskte&#39;s blog">
-<meta property="og:description" content="问题描述A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is $9009 &#x3D; 91 × 99$. Find the largest palindrome made from the product of two 3-d">
-<meta property="article:published_time" content="2020-02-11T14:08:02.000Z">
-<meta property="article:modified_time" content="2020-02-12T11:12:20.398Z">
+<meta property="og:description" content="今天来介绍一种算法竞赛中对于问题优化的新技巧 - - 倍增">
+<meta property="article:published_time" content="2020-08-08T03:51:43.000Z">
+<meta property="article:modified_time" content="2020-08-08T11:38:18.627Z">
 <meta property="article:author" content="tiketiskte">
-<meta property="article:tag" content="Math">
-<meta property="article:tag" content="String">
+<meta property="article:tag" content="前缀和">
+<meta property="article:tag" content="倍增">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/02/11/4-Largest-palindrome-product/">
+<link rel="canonical" href="http://yoursite.com/2020/08/08/%E5%80%8D%E5%A2%9E/">
 
 
 <script id="page-configurations">
@@ -71,7 +71,7 @@
   };
 </script>
 
-  <title>4.Largest palindrome product | tiketiskte's blog</title>
+  <title>倍增 | tiketiskte's blog</title>
   
 
 
@@ -210,7 +210,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/4-Largest-palindrome-product/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/08/%E5%80%8D%E5%A2%9E/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -223,7 +223,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          4.Largest palindrome product
+          倍增
         </h1>
 
         <div class="post-meta">
@@ -232,24 +232,18 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-02-11 22:08:02" itemprop="dateCreated datePublished" datetime="2020-02-11T22:08:02+08:00">2020-02-11</time>
+              <time title="Created: 2020-08-08 11:51:43 / Modified: 19:38:18" itemprop="dateCreated datePublished" datetime="2020-08-08T11:51:43+08:00">2020-08-08</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-12 19:12:20" itemprop="dateModified" datetime="2020-02-12T19:12:20+08:00">2020-02-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Project-Euler/" itemprop="url" rel="index">
-                    <span itemprop="name">Project Euler</span>
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
                   </a>
                 </span>
             </span>
@@ -263,8 +257,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2020/02/11/4-Largest-palindrome-product/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/11/4-Largest-palindrome-product/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/08/08/%E5%80%8D%E5%A2%9E/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/08/%E5%80%8D%E5%A2%9E/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -279,38 +273,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is $9009 = 91 × 99$.</p>
-<p>Find the largest palindrome made from the product of two 3-digit numbers.</p>
+        <p>今天来介绍一种算法竞赛中对于问题优化的新技巧 - - <strong>倍增</strong></p>
 <a id="more"></a>
-<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>1.</p>
-<p>题意就是让你找一个最大回文数 ，是由两个三位数乘积可得到的。</p>
-<p>（这编程题嘛~）</p>
-<p>我们这里采用了两个函数,一个是$itoa$函数， 另一个是$strrev$，两个都是非标准$C/C++$库中的函数。</p>
-<ul>
-<li><p>$itoa$：一个把整数转换成为字符串的函数。</p>
-<p>在头文件$cstdlib$中 用法如下：</p>
+<p>倍增主要是一种技巧可以大大优化时间复杂度的算法，主要常用来解决$RMQ$(区间最值)问题以及关于$LCA$(最近公共祖先)在树上倍增的技巧,以及对倍增的扩展 — <strong>ST表</strong></p>
+<h3 id="倍增初探"><a href="#倍增初探" class="headerlink" title="倍增初探"></a>倍增初探</h3><p>倍增，字面意思 成倍增长，主要是对于一些递推问题，如果其状态空间很大，无法满足复杂度要求，所以我们可以通过成倍增长来只递推状态空间中在$2$的整数次幂上的值作为代表，对于其他值，我们可以通过性质<code>任意整数可以表示成若干个2的次幂项的和</code> 来表示出整数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 2 4 8 ... 2^k &#x2F;&#x2F; 2的幂次项</span><br><span class="line"></span><br><span class="line">1 ~ 2 ^ (k + 1) - 1 &#x2F;&#x2F; 可以表示的整数的范围</span><br></pre></td></tr></table></figure>
+<p>因此对于倍增算法，我们对其问题的状态空间关于$2$的·幂次要有可划分性。</p>
+<h3 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h3><p>给你一个长度为$N$的序列$A$,满足序列$A$中的所有元素都是正整数,然后进行$M$次询问,每次给定一个整数$T$,求出最大的$k$,满足$\sum_{i = 1}^k {A[i]} &lt;= T$.</p>
+<p>要求：算法必须是在线的 也就是说 必须收到一个询问就即时回答,不能收到$M$个询问后统一回答.</p>
+<p>假设: $0 &lt;= T &lt;= \sum_{i = 1}^N {A[i]}$</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
+<li>朴素做法：</li>
+</ol>
+<p>开一个变量$sum$，然后每次询问的时候从前往后扫一遍并且$sum$累加 $if$判断一下</p>
+<p>该算法与$T$有关 $T$越大,时间复杂度越高 最坏情况下 时间复杂度可以达到$O(n * m)$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">int</span> a[maxn];</span><br><span class="line"><span class="keyword">int</span> ans;</span><br><span class="line">ll T, sum;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(m--) &#123;</span><br><span class="line">        sum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(sum + a[i] &gt;= T) &#123;</span><br><span class="line">                ans = i - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                sum += a[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>二分答案</li>
+</ol>
+<p>我们可以发现，既然序列$A$中的元素均为正整数，则对于其求前缀和可以求得一个单调递增的序列。即$\sum_{i = 1}^k {A[i]}$单调递增。</p>
+<p>因此满足答案的分段且单调的性质，故可以二分答案求解。</p>
+<p>二分答案找到中值点$mid$，计算$\sum_{i = 1}^{mid} {A[i]}$ 和$T$的大小关系</p>
 <script type="math/tex; mode=display">
-char *itoa (int value, char *str, int base )\\
-返回一个转换后的字符串指针\\
-value:要被转换的整数\\
-str:转换后的字符串\\
-base:转换的进制数</script></li>
-<li><p>$strrev$：将字符串中的字符按照逆序进行反转。</p>
-<p>在头文件$cstring$中，用法如下：</p>
-<script type="math/tex; mode=display">
-char *strrev(char *s)\\
-返回逆转后的字符串指针\\
-s:要逆序的字符串</script></li>
-</ul>
-<p><strong>注意</strong>：此处判断的时候 一定要遍历字符串判断 不然会出现$5675-&gt;5765$这种情况 ！</p>
-<p>这样我们从999开始 对$i j$ 进行$i * j$判断是不是回文数，如果是最大的，输出即可</p>
-<p>（我们这里用两个参数$ans$和$solve$保存一下，其中需要记录当前最大的回文数） </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);&#125;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//10000--998001</span></span><br><span class="line"><span class="keyword">int</span> ans, solve = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">is_palindrome_number</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> temp[<span class="number">10</span>], str[<span class="number">10</span>];</span><br><span class="line">    itoa(x, str, <span class="number">10</span>);</span><br><span class="line">    itoa(x, temp, <span class="number">10</span>);</span><br><span class="line">    strrev(temp);</span><br><span class="line">    <span class="comment">//cout &lt;&lt; temp &lt;&lt; endl &lt;&lt; str &lt;&lt; endl;</span></span><br><span class="line">    <span class="keyword">int</span> len = <span class="built_in">strlen</span>(str);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(temp[i] != str[i])</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">999</span>; i &gt;= <span class="number">100</span>; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">999</span>; j &gt;= <span class="number">100</span>; j--)</span><br><span class="line">        &#123;</span><br><span class="line">            ans = i * j;</span><br><span class="line">            <span class="keyword">if</span>(is_palindrome_number(ans) &amp;&amp; ans &gt; solve)</span><br><span class="line">            &#123;</span><br><span class="line">                solve = ans;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; solve &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>2.</p>
-<p>数学方法就是用取模去判断三位数是不是一样的</p>
-<p>可参考:<a href="https://www.cnblogs.com/zhouyinhui/archive/2011/01/14/1935824.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhouyinhui/archive/2011/01/14/1935824.html</a></p>
-<h3 id="正确答案"><a href="#正确答案" class="headerlink" title="正确答案"></a>正确答案</h3><script type="math/tex; mode=display">
-Answer:906609</script><h3 id="官方解答"><a href="#官方解答" class="headerlink" title="官方解答"></a>官方解答</h3>   <div class="pdf" target="answer.pdf" height></div>
+if(\sum_{i = 1}^{mid} {A[i]} < T) \qquad k >= mid;\\
+else \qquad k < mid;</script><p>更新二分区间范围 </p>
+<p>我们可以通过前缀和在$O(n)$的复杂度内求出来$sum[i]$，我们选择时，最少选$0$次,最多选$n$次,所以一共二分$O(log n)$次，与$T$无关。</p>
+<p>缺陷在于：当$T$很小时，二分次数保持不变，在一定程度上，性能劣与方法一。例如$N$取$1000000$时，$logn$约为$20$，若$T$为$1$，则显然方法一更优。</p>
+<p>总的时间复杂度：$O(logn * m)$ 常数较大qwq</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">int</span> a[maxn], b[maxn];</span><br><span class="line"><span class="keyword">int</span> ans;</span><br><span class="line">ll T, sum;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> mid)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b[mid];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    b[<span class="number">1</span>] = a[<span class="number">1</span>]; </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        b[i] = b[i - <span class="number">1</span>] + a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(m--) &#123;</span><br><span class="line">        sum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">1</span>, r = n;</span><br><span class="line">        <span class="keyword">while</span>(l &lt; r) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(check(mid) &lt; T) &#123;</span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                r = mid;</span><br><span class="line">            &#125;</span><br><span class="line">            ans = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>倍增优化</li>
+</ol>
+
     </div>
 
     
@@ -340,8 +334,8 @@ Answer:906609</script><h3 id="官方解答"><a href="#官方解答" class="heade
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Math/" rel="tag"><i class="fa fa-tag"></i> Math</a>
-              <a href="/tags/String/" rel="tag"><i class="fa fa-tag"></i> String</a>
+              <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" rel="tag"><i class="fa fa-tag"></i> 前缀和</a>
+              <a href="/tags/%E5%80%8D%E5%A2%9E/" rel="tag"><i class="fa fa-tag"></i> 倍增</a>
           </div>
 
         
@@ -350,13 +344,10 @@ Answer:906609</script><h3 id="官方解答"><a href="#官方解答" class="heade
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/10/3-Largest-prime-factor/" rel="prev" title="3.Largest prime factor">
-      <i class="fa fa-chevron-left"></i> 3.Largest prime factor
+    <a href="/2020/07/16/Monotone-Stack/" rel="prev" title="Monotone_Stack">
+      <i class="fa fa-chevron-left"></i> Monotone_Stack
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/02/12/5-Smallest-multiple/" rel="next" title="5.Smallest multiple">
-      5.Smallest multiple <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -417,7 +408,7 @@ Answer:906609</script><h3 id="官方解答"><a href="#官方解答" class="heade
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法"><span class="nav-number">2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正确答案"><span class="nav-number">3.</span> <span class="nav-text">正确答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#官方解答"><span class="nav-number">4.</span> <span class="nav-text">官方解答</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#倍增初探"><span class="nav-number">1.</span> <span class="nav-text">倍增初探</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题引入"><span class="nav-number">2.</span> <span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">3.</span> <span class="nav-text">解决方案</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
