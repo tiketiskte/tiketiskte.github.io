@@ -34,7 +34,16 @@ else \qquad k < mid;</script><p>更新二分区间范围 </p>
 <ol>
 <li>倍增优化</li>
 </ol>
-]]></content>
+<p>我们可以考虑<strong>倍增</strong>, 用一个变量$len$记录每一次的步长。然后我们判断当某一步不满足条件的时候，我们取<strong>上一次步长和这一次步长的中点值</strong>(二分思想),最终找到合适的点满足条件。</p>
+<p><img src="/2020/08/08/%E5%80%8D%E5%A2%9E/picture.png" alt></p>
+<p>对于该算法，相当于<strong>稳定版本</strong>的“二分法”,我们查找时，按照$2^k$进行遍历，如果不满足，则折半查找，对于$sum$可能到达$2^k$时,大于$T$，则其总和为$2^{k + 1} - 1$,折半后，最坏情况下达到$2^{k - 1}$,其总和为$2^k - 1$</p>
+<p>即最坏情况下，会遍历$2k$次，$k$与$n$和$T$都有关</p>
+<ul>
+<li>$2^k &lt;= n$ $\quad$ -&gt; $\quad$ $k &lt;= lg n$</li>
+<li>$T$增大，则遍历次数$k$随之增大 </li>
+</ul>
+<p>因此，对与倍增算法，其最坏情况下达到$O(log n)$的时间复杂度，但随着$T$正比例改变，显然优于二分算法。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Copyright(c)</span></span><br><span class="line"><span class="comment">* Author : tiketiskte</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;ll, ll&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">int</span> a[maxn], b[maxn];</span><br><span class="line"><span class="keyword">int</span> ans;</span><br><span class="line">ll T, sum;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b[x];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IOS</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    b[<span class="number">1</span>] = a[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        b[i] = b[i - <span class="number">1</span>] + a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(m--) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">1</span>, k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(len) &#123;</span><br><span class="line">            <span class="keyword">if</span>(k + len &lt;= n &amp;&amp; b[k + len] &lt;= T) &#123;</span><br><span class="line">                k += len; <span class="comment">// k = k + len</span></span><br><span class="line">                len &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                len &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans = k;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Learning</category>
       </categories>
@@ -515,9 +524,9 @@ r_i = max(r_{i + 1},sum_{i + k - 1} - sum_{i - 1})</script><p>注意数据范围
         <category>nowcoder</category>
       </categories>
       <tags>
-        <tag>前缀和</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
+        <tag>前缀和</tag>
         <tag>枚举</tag>
       </tags>
   </entry>
@@ -660,9 +669,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
+        <tag>贪心</tag>
         <tag>构造</tag>
         <tag>思维</tag>
-        <tag>贪心</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -867,9 +876,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
