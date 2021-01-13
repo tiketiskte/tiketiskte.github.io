@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>typedef和define详解</title>
+    <url>/2021/01/13/typedef%E5%92%8Cdefine%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>因为在写数据结构的时候，发现自己对于纯<code>C</code>环境下<code>struct</code>和<code>typedef</code>的理解并不是很清楚 于是写下这篇<code>blog</code>以供总结。</p>
+<a id="more"></a>
+<h3 id="typedef-详解"><a href="#typedef-详解" class="headerlink" title="typedef 详解"></a>typedef 详解</h3><p>首先介绍一下<code>typedef</code>， <code>typedef</code>是一种用户自定义类型，<code>creates an alias that can be used anywhere in place of a (possibly complex) type name.</code> 主要目的是简化代码复杂度[长度方面].</p>
+<p><strong>注意</strong> ：typedef名称是现有类型的别名，不是新类型的声明。</p>
+<p>在算法竞赛方面，有许多需要进行别名更改以简化代码的代码量，这时候需要使用<code>typedef</code>来进行简化。</p>
+<p>具体应用如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> pair &lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; PII;</span><br><span class="line"><span class="keyword">typedef</span> pair &lt;ll, ll&gt; PLL;</span><br><span class="line"><span class="keyword">typedef</span> pair &lt;<span class="keyword">double</span>, <span class="keyword">double</span>&gt; PDD;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这时候有人会问，这样岂不是和<code>define</code>的作用一样？实则不然，两个关键字都有自己各自的妙处。</p>
+<p><strong>例如</strong>:</p>
+<p><code>typedef</code>只能进行已有类型的重命名，即给这个类型一个别名，但不可以作用于函数</p>
+<p>而<code>define</code>可以声明一段函数语句用来进行代码简化。</p>
+<p>具体应用如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IOS &#123;ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i, a, n) for(int i = a; i &lt; n; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i, a, n) for(int i = n - 1; i &gt;= a; i--)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> sqr(x) (x) * (x)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SZ(X) (int)X.size()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin(), (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3f</span></span><br></pre></td></tr></table></figure>
+<p>这时候有的同学会问：如果这样的话，为什么我们不直接只用<code>define</code>进行代码处理呢？</p>
+<p>看下一段代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Pstr2 char *</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> *Pstr1;</span><br><span class="line"></span><br><span class="line">Pstr1 s1, s2;</span><br><span class="line">Pstr2 s3, s4;</span><br></pre></td></tr></table></figure>
+<p>代码中，<code>s1, s2, s3</code>的类型都是<code>char *</code>类型，即字符指针类型，但<code>s4</code>是<code>char</code>类型。</p>
+<p>这是因为<code>define</code>只是简单的字符串替换而<code>typedef</code>则是为一个类型起新名字。</p>
+<p>最后一行变成了</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> *s3, s4;</span><br></pre></td></tr></table></figure>
+<p>显而易见~</p>
+<p><strong>陷阱</strong></p>
+<p>当<code>typedef</code>和<code>const</code>同时出现时，就会发生一些不一样的事情。请看以下代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span>* PSTR;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mystrcmp</span><span class="params">(<span class="keyword">const</span> PSTR, <span class="keyword">const</span> PSTR)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>此时<code>const PSTR</code>是不是相当于<code>const char *</code>呢？</p>
+<p>答案是 <strong>不是</strong> 这时候实际上相当于<code>char* const</code> .</p>
+<p>原因在于<code>const</code>给予了整个指针本身以常量性，也就是形成了常量指针<code>char* const</code>。</p>
+<p>简单来说，记住当<code>const</code>和<code>typedef</code>一起出现时，<code>typedef</code>不会是简单的字符串替换就行。</p>
+<h3 id="typedef与struct的结合"><a href="#typedef与struct的结合" class="headerlink" title="typedef与struct的结合"></a>typedef与struct的结合</h3><p><code>struct</code>主要用来声明结构体，在<code>C98</code>中，如果想要定义一个结构体类型变量，必须采用以下写法：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> <span class="title">s</span>;</span></span><br></pre></td></tr></table></figure>
+<p>注意到上述代码中，定义了一个新的数据类型，这个类型是一个结构类型 如果我们直接<code>node s</code>是会报错的，这个类型是<code>struct node</code>类型。</p>
+<p>因此我们通常采用以下写法：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">&#125;qwq;</span><br><span class="line">qwq s;</span><br></pre></td></tr></table></figure>
+<p>这个语句做了两件事：</p>
+<p>第一件事是声明了一个新的数据类型 — 结构类型：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>第二件事是利用<code>typedef</code>关键字为这个结构类型起一个别名：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span> <span class="title">qwq</span>;</span></span><br></pre></td></tr></table></figure>
+<p>因此<code>qwq</code>实际上相当于<code>struct node</code> 这时候就可以直接使用<code>qwq</code>来定义变量辣~</p>
+<p>在数据结构中，使用结构体更多的是里边的成员通过<strong>递归定义</strong>,这时候声明时，就要加上<code>struct</code>，只有这样才表明是一个结构类型~</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://en.cppreference.com/w/cpp/language/class" target="_blank" rel="noopener">struct</a></li>
+<li><a href="https://en.cppreference.com/w/cpp/language/typedef" target="_blank" rel="noopener">typedef</a></li>
+<li><a href="http://www.cplusplus.com/doc/tutorial/other_data_types/" target="_blank" rel="noopener">typedef</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>语法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>树的同构</title>
     <url>/2020/11/20/%E6%A0%91%E7%9A%84%E5%90%8C%E6%9E%84/</url>
     <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>给你两个相同结点个数的树,判断这两颗树是否同构。</p>
@@ -598,9 +654,9 @@ r_i = max(r_{i + 1},sum_{i + k - 1} - sum_{i - 1})</script><p>注意数据范围
         <category>nowcoder</category>
       </categories>
       <tags>
-        <tag>前缀和</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
+        <tag>前缀和</tag>
         <tag>枚举</tag>
       </tags>
   </entry>
@@ -743,9 +799,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
+        <tag>贪心</tag>
         <tag>构造</tag>
         <tag>思维</tag>
-        <tag>贪心</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -950,9 +1006,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
