@@ -1,6 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>快速排序</title>
+    <url>/2021/02/21/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<p>今天来介绍一种常用的排序算法 — <strong>快速排序</strong><br>…如果你和我讲<strong>sort</strong>那请你忽略这篇文章…</p>
+<a id="more"></a>
+<h3 id="快速排序思想"><a href="#快速排序思想" class="headerlink" title="快速排序思想"></a>快速排序思想</h3><p>快速排序主要采用的思想是<strong>分而治之</strong>,主要步骤有以下三部分：</p>
+<ul>
+<li><p>确定分界点 </p>
+<p>  $x = a[l]$还是$x = a[r]$还是$x = a[(l + r)&gt;&gt; 1]$</p>
+</li>
+<li><p><strong>调整区间</strong> 划分成为两个区间 使得：</p>
+<ol>
+<li>划分点$x$ 左边所有的数均小于等于$x$</li>
+<li>划分点$x$ 右边所有的数均大于等于$x$</li>
+</ol>
+</li>
+</ul>
+<p>保证满足上述两条即可 如果等于$x$ 实际在左右均可。</p>
+<ul>
+<li><p>递归</p>
+<p>  递归处理划分的两个区间即可。</p>
+</li>
+</ul>
+<h3 id="快速排序模板"><a href="#快速排序模板" class="headerlink" title="快速排序模板"></a>快速排序模板</h3><p>快速排序中有许多边界问题，因此最好背过一种模板 可以避免绝大多数边界情况的模板即可。</p>
+<p>下边提供一种快速排序的模板：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt;&amp; arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l &gt;= r) &#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> x = arr[(l + r) &gt;&gt; <span class="number">1</span>], i = l - <span class="number">1</span>, j = r + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">        <span class="keyword">do</span> &#123;i++;&#125; <span class="keyword">while</span>(arr[i] &lt; x);</span><br><span class="line">        <span class="keyword">do</span> &#123;j--;&#125; <span class="keyword">while</span>(arr[j] &gt; x);</span><br><span class="line">        <span class="keyword">if</span>(i &lt; j) &#123;</span><br><span class="line">            swap(arr[i], arr[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(arr, l, j);</span><br><span class="line">    quick_sort(arr, j + <span class="number">1</span>, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="快速排序常见问题"><a href="#快速排序常见问题" class="headerlink" title="快速排序常见问题"></a>快速排序常见问题</h3><p>在这里，我们会遇到较多的边界处理情况，例如：</p>
+<p>如果我们写<code>quick_sort(arr, l, j)</code> 和 <code>quick_sort(arr, j + 1, r)</code>， 那我们相当于是以$j$为界限划分，这时候取得$x$的值的时候，我们不可以选择$a[r]$作为分界点，实际上，我们不可以选择区间的<strong>右端点</strong>作为分界点，因此我们不可以在确定x的时候写<code>x = arr[r]</code>和<code>x = arr[(l + r + 1) &gt;&gt; 1]</code>,只可以写<code>x = arr[l]</code> 和 <code>x = arr[(l + r) &gt;&gt; 1]</code>.</p>
+<ul>
+<li>选$j$为分界点 取到中间或者左边界 正确分析情况</li>
+</ul>
+<p><img src="/2021/02/21/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/picture1.JPG" alt></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//不过不建议这种写法 因为可能会导致每次选择的时候</span></span><br><span class="line"><span class="comment">//都是左端点 对于一个排好序的数组最坏情况下 时间</span></span><br><span class="line"><span class="comment">//复杂度可以达到O(n^2)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt;&amp; arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l &gt;= r) &#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> x = arr[l], i = l - <span class="number">1</span>, j = r + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">        <span class="keyword">do</span> &#123;i++;&#125; <span class="keyword">while</span>(arr[i] &lt; x);</span><br><span class="line">        <span class="keyword">do</span> &#123;j--;&#125; <span class="keyword">while</span>(arr[j] &gt; x);</span><br><span class="line">        <span class="keyword">if</span>(i &lt; j) &#123;</span><br><span class="line">            swap(arr[i], arr[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(arr, l, j);</span><br><span class="line">    quick_sort(arr, j + <span class="number">1</span>, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 完美写法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt;&amp; arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l &gt;= r) &#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> x = arr[(l + r) &gt;&gt; <span class="number">1</span>], i = l - <span class="number">1</span>, j = r + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">        <span class="keyword">do</span> &#123;i++;&#125; <span class="keyword">while</span>(arr[i] &lt; x);</span><br><span class="line">        <span class="keyword">do</span> &#123;j--;&#125; <span class="keyword">while</span>(arr[j] &gt; x);</span><br><span class="line">        <span class="keyword">if</span>(i &lt; j) &#123;</span><br><span class="line">            swap(arr[i], arr[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(arr, l, j);</span><br><span class="line">    quick_sort(arr, j + <span class="number">1</span>, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们写<code>quick_sort(arr, l, i - 1)</code> 和 <code>quick_sort(arr, i, r)</code>， 那我们相当于是以$i$为界限划分，这时候取得$x$的值的时候，我们不可以选择$a[l]$作为分界点，实际上，我们不可以选择区间的<strong>左端点</strong>作为分界点，因此我们不可以在确定x的时候写<code>x = arr[l]</code>和<code>x = arr[(l + r) &gt;&gt; 1]</code>,只可以写<code>x = arr[r]</code> 和 <code>x = arr[(l + r + 1) &gt;&gt; 1]</code>.</p>
+<ul>
+<li>选$i$为分界点 取到中间或者左边界 陷入死循环情况</li>
+</ul>
+<p><img src="/2021/02/21/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/picture2.JPG" alt></p>
+<ul>
+<li>选$i$为分界点 取到中间或者右边界 正确分析情况<br><img src="/2021/02/21/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/picture3.JPG" alt></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//不过不建议这种写法 因为可能会导致每次选择的时候</span></span><br><span class="line"><span class="comment">//都是左端点 对于一个逆序排好序的数组最坏情况下 时</span></span><br><span class="line"><span class="comment">//间复杂度可以达到O(n^2)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt;&amp; arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l &gt;= r) &#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> x = arr[r], i = l - <span class="number">1</span>, j = r + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">        <span class="keyword">do</span> &#123;i++;&#125; <span class="keyword">while</span>(arr[i] &lt; x);</span><br><span class="line">        <span class="keyword">do</span> &#123;j--;&#125; <span class="keyword">while</span>(arr[j] &gt; x);</span><br><span class="line">        <span class="keyword">if</span>(i &lt; j) &#123;</span><br><span class="line">            swap(arr[i], arr[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(arr, l, i - <span class="number">1</span>);</span><br><span class="line">    quick_sort(arr, i, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 完美写法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt;&amp; arr, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l &gt;= r) &#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> x = arr[(l + r + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>], i = l - <span class="number">1</span>, j = r + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">        <span class="keyword">do</span> &#123;i++;&#125; <span class="keyword">while</span>(arr[i] &lt; x);</span><br><span class="line">        <span class="keyword">do</span> &#123;j--;&#125; <span class="keyword">while</span>(arr[j] &gt; x);</span><br><span class="line">        <span class="keyword">if</span>(i &lt; j) &#123;</span><br><span class="line">            swap(arr[i], arr[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(arr, l, i - <span class="number">1</span>);</span><br><span class="line">    quick_sort(arr, i, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上就是选取<strong>基准值</strong>以及<strong>划分边界</strong>的边界易错情况。</p>
+<p>划分的时候我们划分的两个区间<strong>不可以有交集</strong></p>
+<p>因此我们我们不可以$i$和$j$交叉使用.</p>
+<p>即只可以使用：</p>
+<ul>
+<li>以$i$划分<ol>
+<li><code>(l, i - 1)</code>和<code>(i, r)</code></li>
+<li><code>(l, i)</code>和<code>(i + 1, r)</code></li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>以$j$划分<ol>
+<li><code>(l, j - 1)</code> 和<code>(j, r)</code></li>
+<li><code>(l, j)</code>和<code>(j + 1, r)</code></li>
+</ol>
+</li>
+</ul>
+<p>然后上边四种情况有两种是不可以使用的 会出现边界问题</p>
+<p>注意划分的时候是：</p>
+<ul>
+<li><code>(l, j)</code>和<code>(j + 1, r)</code></li>
+<li><code>(l, i - 1)</code>和<code>(i, r)</code></li>
+</ul>
+<p>而不是：</p>
+<ul>
+<li><code>(l, j - 1)</code>和<code>(j, r)</code></li>
+<li>…</li>
+</ul>
+<p>等其他情况…</p>
+<p>模拟样例即可发现数组越界的情况辣~~~</p>
+<p>如果出现<code>while(i &lt;= j)</code>的写法也是不正确的</p>
+<p>如下图所示 会发生死循环的情况：</p>
+<ul>
+<li>采用<code>while(i &lt;= j)</code>的写法 情况分析</li>
+</ul>
+<p><img src="/2021/02/21/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/picture4.JPG" alt></p>
+<p><strong>重点</strong></p>
+<p>此处对于陷入死循环的情况是由于函数执行后并没有缩短区间长度，导致无限递归，并不属于一个性质 只是一个<strong>边界情况</strong>qwq 并且除了快排 在其他地方基本不会遇到……因此没有必要过于纠结……</p>
+<h3 id="快排时间复杂度分析"><a href="#快排时间复杂度分析" class="headerlink" title="快排时间复杂度分析"></a>快排时间复杂度分析</h3><p>具体计算emm 待补 参见<strong>算法导论</strong>[实际是我还不会qwq]</p>
+<script type="math/tex; mode=display">
+O(nlogn)</script><h3 id="快排总结"><a href="#快排总结" class="headerlink" title="快排总结"></a>快排总结</h3><p>事实证明：</p>
+<p><strong>sort</strong> 天下第一！！！（破音~）</p>
+]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>sort</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>typedef和define详解</title>
     <url>/2021/01/13/typedef%E5%92%8Cdefine%E8%AF%A6%E8%A7%A3/</url>
     <content><![CDATA[<h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>因为在写数据结构的时候，发现自己对于纯<code>C</code>环境下<code>struct</code>和<code>typedef</code>的理解并不是很清楚 于是写下这篇<code>blog</code>以供总结。</p>
