@@ -5,13 +5,25 @@
     <url>/2021/08/17/Data-Structure-Chapter-2/</url>
     <content><![CDATA[<p>这是<strong>2022</strong>年王道数据结构复习单科书的代码练习题 以<code>Chapter</code>为区分。</p>
 <a id="more"></a>
-<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><h3 id="1-1"><a href="#1-1" class="headerlink" title="1"></a>1</h3><p>简单题</p>
+<h1 id="Chapter2-2"><a href="#Chapter2-2" class="headerlink" title="Chapter2.2"></a>Chapter2.2</h1><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>简单题</p>
 <p>时间复杂度：$O(N)$</p>
 <p>空间复杂度：$O(1)$</p>
 <h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p>简单题 注意<strong>下标关系</strong></p>
 <p>时间复杂度：$O(N) / \Theta(\frac{N}{2})$</p>
 <p>空间复杂度：$O(1)$</p>
 <h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><p>简单题 <code>cnt</code>计算重复次数 下标对应移动即可</p>
+<p>时间复杂度：$O(N)$</p>
+<p>空间复杂度：$O(1)$</p>
+<h3 id="4"><a href="#4" class="headerlink" title="4"></a>4</h3><p>有序表</p>
+<p>找介于<code>s</code>和<code>t</code>的可以采用双指针，从两边往中间靠，然后从<code>i</code>的末尾开始用<code>j</code>的元素覆盖即可。</p>
+<p>时间复杂度：$O(N)$</p>
+<p>空间复杂度：$O(1)$</p>
+<h3 id="5"><a href="#5" class="headerlink" title="5"></a>5</h3><p>不是有序表所以遍历整个顺序表用<code>cnt</code>计数满足条件的然后覆盖 类似<strong>第三题</strong>[注意写法]</p>
+<p>时间复杂度：$O(N)$</p>
+<p>空间复杂度：$O(1)$</p>
+<h3 id="6"><a href="#6" class="headerlink" title="6"></a>6</h3><p>第一眼想到了$O(n^2)$的的写法，两层for然后计数，但复杂度过高</p>
+<p>下面有一种比较好的写法，双指针 具体思想是：用两个指针一个指针先走，然后一个指针只有值不同时移动，然后对后移动的值进行覆盖，遍历完整个顺序表后，取后指针的长度即可。</p>
+<p><img src="/2021/08/17/Data-Structure-Chapter-2/2_6.png" alt="2_6"></p>
 <p>时间复杂度：$O(N)$</p>
 <p>空间复杂度：$O(1)$</p>
 ]]></content>
