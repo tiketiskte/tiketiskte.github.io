@@ -1353,7 +1353,8 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
 <a id="more"></a>
 <h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>拥有保留的blog的主题文件，即放在C盘的blog整体文件夹</p>
 <h1 id="具体细节"><a href="#具体细节" class="headerlink" title="具体细节"></a>具体细节</h1><p>我们照例下载nodejs和git等控件</p>
-<p>先采用nodejs运行以下命令安装hexo等控件</p>
+<p>先采用<code>nodejs</code>运行以下命令安装hexo等控件</p>
+<p>注意<code>nodejs</code>的版本问题 最初安装时，版本为<code>12.16.1</code>,更新第一次后版本为<code>v13.14.0</code>,不可以选择版本更高的<code>nodejs</code>,因为module会不兼容~</p>
 <p><img src="/2020/02/24/%E8%AE%B02020-2-24%E7%94%B5%E8%84%91%E9%87%8D%E8%A3%85%E5%90%8E%E7%9A%84Blog%E6%81%A2%E5%A4%8D/hexo_install.jpg" alt></p>
 <p>然后我们可以在C盘用hexo来自动生成一个blog文件</p>
 <p>命令如下：</p>
