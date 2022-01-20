@@ -1,6 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CentOS配置Git</title>
+    <url>/2022/01/20/CentOS%E9%85%8D%E7%BD%AEGit/</url>
+    <content><![CDATA[<p>阿里云ECS服务器上用CentOS配置Git</p>
+<a id="more"></a>
+<p><strong>查看当前服务器是否有安装git</strong></p>
+<p><code>git --version</code></p>
+<p>如果有，那么查看版本号，是否是你想要的或最新的版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">┌─[root@sun] - [/] - [Thu Jan 20, 11:32]</span><br><span class="line">└─[$]&gt; git --version</span><br><span class="line">git version 1.8.3.1</span><br></pre></td></tr></table></figure>
+<p>如果不是自己想要的版本，那么执行以下命令可卸载当前版本</p>
+<p><code>yum remove git</code></p>
+<p>查看当前系统的git</p>
+<p><code>git</code></p>
+<p>cd到<code>home</code>目录，创建一个目录<code>qwq</code>，尽量与你git远程存储库的一样，这里将存放着你的git本地文件</p>
+<p><code>mkdir qwq</code></p>
+<p>cd进入到刚刚创建的目录中，把文件夹初始化成git仓库</p>
+<p><code>git init</code></p>
+<p>把需要存储的文件存储到本地git里</p>
+<p><code>git add 文件名称</code></p>
+<p>设置邮箱和用户名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.email <span class="string">"xxxx@xxxxxxx.com"</span></span><br><span class="line">git config --global user.name <span class="string">"Your Name"</span></span><br></pre></td></tr></table></figure>
+<p>接下来提交到仓库中</p>
+<p><code>git commit -m&quot;first commit&quot;</code></p>
+<p>查看当前仓库的文件</p>
+<p><code>git ls-files</code></p>
+<p>接下来到了传递到远程仓库的时候了</p>
+<p>首先先生成自己的密钥</p>
+<p><code>ssh-keygen -t rsa</code></p>
+<p>生成成功可以看见当前生成的密钥路径</p>
+<p>cd 到此目录 <code>.ssh</code>是属于隐藏目录，可用<code>ls -a</code>先行浏览再进入</p>
+<p>进入<code>.ssh</code>目录后查看当前密钥文件，并把文件内容复制下来</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/bin/<span class="built_in">which</span>: no .ssh <span class="keyword">in</span> (/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/bin:/usr/sbin:/usr/bin:/root/bin)</span><br><span class="line">┌─[root@sun] - [/] - [Thu Jan 20, 11:46]</span><br><span class="line">└─[$]&gt; <span class="built_in">cd</span> root </span><br><span class="line">┌─[root@sun] - [~] - [Thu Jan 20, 11:46]</span><br><span class="line">└─[$]&gt; ls</span><br><span class="line">┌─[root@sun] - [~] - [Thu Jan 20, 11:46]</span><br><span class="line">└─[$]&gt; ls -al</span><br><span class="line">total 116</span><br><span class="line">dr-xr-x---.  7 root root  4096 Jan 20 11:46 .</span><br><span class="line">dr-xr-xr-x. 18 root root  4096 Jan 17 16:01 ..</span><br><span class="line">-rw-------   1 root root  7953 Jan 19 23:59 .bash_history</span><br><span class="line">-rw-r--r--.  1 root root    18 Dec 29  2013 .bash_logout</span><br><span class="line">-rw-r--r--.  1 root root   176 Dec 29  2013 .bash_profile</span><br><span class="line">-rw-r--r--.  1 root root   176 Dec 29  2013 .bashrc</span><br><span class="line">drwx------   3 root root  4096 Dec 27 09:52 .cache</span><br><span class="line">-rw-r--r--.  1 root root   100 Dec 29  2013 .cshrc</span><br><span class="line">-rw-r--r--   1 root root    55 Jan 19 18:04 .gitconfig</span><br><span class="line">drwxr-xr-x  12 root root  4096 Jan 19 23:15 .oh-my-zsh</span><br><span class="line">drwxr-xr-x   2 root root  4096 Dec 27 09:52 .pip</span><br><span class="line">drwxr-----   3 root root  4096 Jan 17 16:15 .pki</span><br><span class="line">-rw-r--r--   1 root root   206 Jan 17 16:01 .pydistutils.cfg</span><br><span class="line">drwx------   2 root root  4096 Jan 19 17:53 .ssh</span><br><span class="line">-rw-r--r--.  1 root root   129 Dec 29  2013 .tcshrc</span><br><span class="line">-rw-------   1 root root  2278 Jan 19 23:20 .viminfo</span><br><span class="line">-rw-r--r--   1 root root 36647 Jan 20 10:04 .zcompdump-sun-5.0.2</span><br><span class="line">-rw-------   1 root root  2289 Jan 20 11:46 .zsh_history</span><br><span class="line">-rw-r--r--   1 root root  4167 Jan 20 10:00 .zshrc</span><br><span class="line">┌─[root@sun] - [~] - [Thu Jan 20, 11:46]</span><br><span class="line">└─[$]&gt; <span class="built_in">cd</span> .ssh </span><br><span class="line">┌─[root@sun] - [~/.ssh] - [Thu Jan 20, 11:46]</span><br><span class="line">└─[$]&gt; ls</span><br><span class="line">authorized_keys  id_rsa  id_rsa.pub  known_hosts</span><br><span class="line">┌─[root@sun] - [~/.ssh] - [Thu Jan 20, 11:46]</span><br><span class="line">└─[$]&gt; more id_rsa.pub </span><br><span class="line">ssh-rsa ......bImXX1 root@sun</span><br></pre></td></tr></table></figure>
+<p>打开<code>github</code>网站并登陆，点击右上角头像，再点击<code>Settings</code></p>
+<p><img src="/2022/01/20/CentOS%E9%85%8D%E7%BD%AEGit/first.png" alt></p>
+<p>找到<code>SSH and GPG keys</code>并点击</p>
+<p>点击右上角<code>New SSH key</code>添加新密钥</p>
+<p>然后完成以下步骤并保存</p>
+<p><img src="/2022/01/20/CentOS%E9%85%8D%E7%BD%AEGit/second.png" alt></p>
+<p>回到服务器远程连接git并把本地仓库的文件克隆上去</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># git remote add origin git@github.com:自己的git组织名称/仓库名称.git</span></span><br><span class="line"><span class="comment"># git push -u origin master</span></span><br></pre></td></tr></table></figure>
+<p>本地获取远程仓库的文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git://github.com/组织名称/文件仓库名称.git</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git同步</title>
+    <url>/2022/01/20/git%E5%90%8C%E6%AD%A5/</url>
+    <content><![CDATA[<p>当同步本地仓库和远程仓库时，输入命令<code>git push</code>可能会发生下列报错：</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">! [rejected]        master -&gt; master (fetch first)</span><br><span class="line">error: failed to push some refs to <span class="string">'https://github.com/xxxx/xxxx.git'</span></span><br><span class="line">hint: Updates were rejected because the remote contains work that you <span class="keyword">do</span></span><br><span class="line">hint: not have locally. This is usually caused by another repository pushing</span><br><span class="line">hint: to the same ref. You may want to first integrate the remote changes</span><br><span class="line">hint: (e.g., <span class="string">'git pull ...'</span>) before pushing again.</span><br><span class="line">hint: See the <span class="string">'Note about fast-forwards'</span> <span class="keyword">in</span> <span class="string">'git push --help'</span> <span class="keyword">for</span> details.``</span><br></pre></td></tr></table></figure>
+<p>原因：<strong>远程仓库与本地仓库文件不一致造成的</strong></p>
+<p>因此下面阐述三种不同情况下的同步方式。</p>
+<ol>
+<li><p>远程仓库发生改变，本地仓库没有改变</p>
+</li>
+<li><p>远程仓库没有改变，本地仓库发生改变</p>
+</li>
+<li><p>远程仓库，本地仓库都发生改变</p>
+</li>
+</ol>
+<p>这三种方式的情况下，如何做到没有Bug的合并代码。。。</p>
+<h3 id="远程仓库发生改变，本地仓库没有改变"><a href="#远程仓库发生改变，本地仓库没有改变" class="headerlink" title="远程仓库发生改变，本地仓库没有改变"></a>远程仓库发生改变，本地仓库没有改变</h3><ul>
+<li><p>首先，查看远程仓库<code>git remote -v</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">┌─[root@sun] - [/home/CSAPP] - [Thu Jan 20, 10:30]</span><br><span class="line">└─[$]&gt; git remote -v</span><br><span class="line">origin  git@github.com:tiketiskte/CSAPP.git (fetch)</span><br><span class="line">origin  git@github.com:tiketiskte/CSAPP.git (push)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把远程库更新到本地 <code>git fetch origin master</code></p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">┌─[root@sun] - [/home/CSAPP] - [Thu Jan 20, 10:31]</span><br><span class="line">└─[$]&gt; git fetch origin master</span><br><span class="line">From github.com:tiketiskte/CSAPP</span><br><span class="line"> * branch            master     -&gt; FETCH_HEAD</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>比较远程更新和本地版本库的差异 <code>git log master.. origin/master</code></p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> master.. origin/master</span><br><span class="line">commit ce39f8b3eeee898a2a038444f897f2aef3673493</span><br><span class="line">Author: &#123;User&#125; &lt;794870409@qq.com&gt;</span><br><span class="line">Date:   Fri Feb 26 14:14:39 2016 +0800</span><br><span class="line"></span><br><span class="line">    &#123;The context origin added ... &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并远程库 <code>git merge origin/master</code></p>
+<ul>
+<li><p>有差异</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">┌─[root@sun] - [/home/CSAPP] - [Thu Jan 20, 10:35]</span><br><span class="line">└─[$]&gt; git merge origin/master</span><br><span class="line">Updating eb32b20..ce39f8b</span><br><span class="line">Fast-forward</span><br><span class="line"> README.md | 2 +-</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>无差异</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">┌─[root@sun] - [/home/CSAPP] - [Thu Jan 20, 10:36]</span><br><span class="line">└─[$]&gt; git merge origin/master</span><br><span class="line">Already up-to-date.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="远程仓库没有改变，本地仓库发生改变"><a href="#远程仓库没有改变，本地仓库发生改变" class="headerlink" title="远程仓库没有改变，本地仓库发生改变"></a>远程仓库没有改变，本地仓库发生改变</h3><p>常用命令</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git status // 查看版本库的状态</span><br><span class="line">git add .|[file you want add like README.md] // 添加修改的文件进入版本库</span><br><span class="line">git commit -m <span class="string">"the content of your modify"</span> // 提交版本库</span><br><span class="line">git push -u origin master // 上传到远程版本库</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>首先你的文件出现了修改 <code>git status</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">┌─[root@sun] - [/home/CSAPP] - [Thu Jan 20, 10:45]</span><br><span class="line">└─[$]&gt; git status        </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment"># Your branch is ahead of 'origin/master' by 1 commit.</span></span><br><span class="line"><span class="comment">#   (use "git push" to publish your local commits)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Changes not staged for commit:</span></span><br><span class="line"><span class="comment">#   (use "git add &lt;file&gt;..." to update what will be committed)</span></span><br><span class="line"><span class="comment">#   (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#       modified:   datalab-handout/bits.c</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">no changes added to commit (use <span class="string">"git add"</span> and/or <span class="string">"git commit -a"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>你的文件被修改后就会出现这样的显示</p>
+<ul>
+<li><p>添加文件 <code>git add .|[或者某个文件]|like: README.md</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">或</span><br><span class="line">git add xxx</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>然后查看状态<code>git status</code></p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">┌─[root@sun] - [/home/CSAPP] - [Thu Jan 20, 10:54]</span><br><span class="line">└─[$]&gt; git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment"># Your branch is ahead of 'origin/master' by 1 commit.</span></span><br><span class="line"><span class="comment">#   (use "git push" to publish your local commits)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#   (use "git reset HEAD &lt;file&gt;..." to unstage)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#       modified:   datalab-handout/bits.c</span></span><br><span class="line"><span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>文件添加后，就会出现这种</p>
+<ul>
+<li><p>提交文件<code>git commit -m &quot;content&quot;</code></p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">┌─[root@sun] - [/home/CSAPP] - [Thu Jan 20, 10:56]</span><br><span class="line">└─[$]&gt; git commit -m <span class="string">"update content"</span></span><br><span class="line">[master b9a152e] update content</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>文件提交到你的版本库，这样本地版本就更新了</p>
+<ul>
+<li><p>和远程库进行同步 <code>git push -u origin master</code></p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">┌─[root@sun] - [/home/CSAPP] - [Thu Jan 20, 11:06]</span><br><span class="line">└─[$]&gt; git push -u origin master</span><br><span class="line">Counting objects: 7, <span class="keyword">done</span>.</span><br><span class="line">Compressing objects: 100% (4/4), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (4/4), 391 bytes | 0 bytes/s, <span class="keyword">done</span>.</span><br><span class="line">Total 4 (delta 2), reused 0 (delta 0)</span><br><span class="line">remote: Resolving deltas: 100% (2/2), completed with 2 <span class="built_in">local</span> objects.</span><br><span class="line">To git@github.com:tiketiskte/CSAPP.git</span><br><span class="line">   06be22d..b9a152e  master -&gt; master</span><br><span class="line">Branch master <span class="built_in">set</span> up to track remote branch master from origin.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这样我们的版本库同步也就好了。</p>
+<h3 id="远程仓库发生改变，本地仓库发生改变"><a href="#远程仓库发生改变，本地仓库发生改变" class="headerlink" title="远程仓库发生改变，本地仓库发生改变"></a>远程仓库发生改变，本地仓库发生改变</h3><p>待更……</p>
+<h3 id="Git的一些命令"><a href="#Git的一些命令" class="headerlink" title="Git的一些命令"></a>Git的一些命令</h3><ol>
+<li><code>git add .</code> 和<code>git add *</code>的区别：<code>git add .</code>会把本地所有<code>untrack</code>的文件都加入暂存区，并且会根据<code>.gitignore</code>做过滤，但是<code>git add *</code>会忽略<code>.gitignore</code>把任何文件都加入</li>
+<li><code>git add</code>时，可以采用<code>git add [file1] [file2] ...</code>将一个或多个文件添加到暂存区，也可以采用<code>git add [dir]</code>添加指定目录到暂存区(包括子目录),同样也可以采用<code>git add .</code>添加当前目录下的所有文件到暂存区</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>树的同构</title>
     <url>/2021/10/04/%E6%A0%91%E7%9A%84%E5%90%8C%E6%9E%84/</url>
     <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>给你两个相同结点个数的树,判断这两颗树是否同构。</p>
@@ -942,9 +1071,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
-        <tag>贪心</tag>
-        <tag>构造</tag>
         <tag>思维</tag>
+        <tag>构造</tag>
+        <tag>贪心</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -1026,8 +1155,8 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>思维</tag>
+        <tag>构造</tag>
         <tag>前缀和</tag>
       </tags>
   </entry>
@@ -1149,9 +1278,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
+        <tag>构造</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
-        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
