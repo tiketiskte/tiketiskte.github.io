@@ -926,9 +926,9 @@ r_i = max(r_{i + 1},sum_{i + k - 1} - sum_{i - 1})</script><p>注意数据范围
         <category>nowcoder</category>
       </categories>
       <tags>
-        <tag>前缀和</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
+        <tag>前缀和</tag>
         <tag>枚举</tag>
       </tags>
   </entry>
@@ -1071,9 +1071,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
+        <tag>贪心</tag>
         <tag>构造</tag>
         <tag>思维</tag>
-        <tag>贪心</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -1278,9 +1278,9 @@ x = \frac{n}{2^k - 1};\\</script><p>我们令$k  = 2$ 开始遍历$k$即可，�
         <category>Codeforces</category>
       </categories>
       <tags>
-        <tag>构造</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
