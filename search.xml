@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>汇编编码字节长度</title>
+    <url>/2022/02/19/%E6%B1%87%E7%BC%96%E7%BC%96%E7%A0%81%E5%AD%97%E8%8A%82%E9%95%BF%E5%BA%A6/</url>
+    <content><![CDATA[<p><strong>查看汇编语句的编码字节长度</strong></p>
+<a id="more"></a>
+<p>在<code>CSAPP</code>的习题3.11中,第三问要求 比较<strong>两种不同的汇编命令的编码字节长度</strong>，下面介绍两种方式来实现该目的</p>
+<h3 id="利用反汇编命令"><a href="#利用反汇编命令" class="headerlink" title="利用反汇编命令"></a>利用反汇编命令</h3><p>首先写出题目要求的两条汇编语句:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a:</span><br><span class="line">xorq %rdx, %rdx</span><br><span class="line">b:</span><br><span class="line">movq $0, %rdx</span><br></pre></td></tr></table></figure>
+<p>写<code>a</code>和<code>b</code>主要是区分两条命令，由于计算机一般执行可执行文件，因此对其汇编的代码进行加工，通过<strong>汇编器</strong>生成二进制<strong>目标代码</strong>文件</p>
+<p>命令:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gcc -Og test.s -o  test.o</span><br><span class="line">as test.s -o test.o </span><br><span class="line">//两种方式均可</span><br></pre></td></tr></table></figure>
+<p>现在已经生成<code>.o</code>后缀的二进制可执行目标代码文件</p>
+<p>利用反汇编器来分析<code>.o</code>文件，命令:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">objdump -d BitSize.o</span><br></pre></td></tr></table></figure>
+<p>生成以下结果:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">┌─[root@sun] - [/home/mycode/Linux/Chapter3] - [Sat Feb 19, 17:40]</span><br><span class="line">└─[$]&gt; objdump -d BitSize.o</span><br><span class="line"></span><br><span class="line">BitSize.o:     file format elf64-x86-64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Disassembly of section .text:</span><br><span class="line"></span><br><span class="line">0000000000000000 &lt;a&gt;:</span><br><span class="line">   0:   48 31 d2                xor    %rdx,%rdx</span><br><span class="line"></span><br><span class="line">0000000000000003 &lt;b&gt;:</span><br><span class="line">   3:   48 c7 c2 00 00 00 00    mov    $0x0,%rdx</span><br></pre></td></tr></table></figure>
+<p>左侧为<strong>机器指令</strong></p>
+<p>注意到:<code>a</code>形式的汇编语句占用了3个字节，<code>b</code>形式的汇编语句占用了7个字节</p>
+<h3 id="利用nm命令"><a href="#利用nm命令" class="headerlink" title="利用nm命令"></a>利用nm命令</h3><p><code>nm</code>命令是<code>Linux</code>下自带的特定文件分析工具，一般用来检查分析二进制文件、库文件、可执行文件中的符号表，返回二进制文件中各段的信息。</p>
+<p>利用<code>man</code>命令可以查看<code>nm</code>的使用方法,可以采用<code>-n</code>参数来以<strong>地址排序</strong>，而<strong>不是名称排序</strong></p>
+<p>得到:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">┌─[root@sun] - [/home/mycode/Linux/Chapter3] - [Sat Feb 19, 18:20]</span><br><span class="line">└─[$]&gt; nm -n BitSize.o </span><br><span class="line">0000000000000000 t a</span><br><span class="line">0000000000000003 t b</span><br></pre></td></tr></table></figure>
+<p>可以得到：</p>
+<p><code>a</code>形式的汇编语句占用了3个字节</p>
+<p>但<code>b</code>形式的汇编语句不明确 因此逻辑上<strong>人为</strong>增加一条语句:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a:</span><br><span class="line">xorq %rdx, %rdx</span><br><span class="line">b:</span><br><span class="line">movq $0, %rdx</span><br><span class="line">c:</span><br></pre></td></tr></table></figure>
+<p>继续生成<code>.o</code>文件然后用<code>nm</code>命令分析</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">┌─[root@sun] - [/home/mycode/Linux/Chapter3] - [Sat Feb 19, 18:27]</span><br><span class="line">└─[$]&gt; nm  BitSize.o            </span><br><span class="line">0000000000000000 t a</span><br><span class="line">0000000000000003 t b</span><br><span class="line">000000000000000a t c</span><br></pre></td></tr></table></figure>
+<p>得到：<code>a</code>形式的汇编语句占用了3个字节[0 - 2]，<code>b</code>形式的汇编语句占用了7个字节[3 - 9]</p>
+<p>注意:地址是采用<strong>十六进制</strong>表示的</p>
+]]></content>
+      <categories>
+        <category>CSAPP</category>
+      </categories>
+      <tags>
+        <tag>CSAPP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2022/01/25/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
@@ -860,9 +898,9 @@ r_i = max(r_{i + 1},sum_{i + k - 1} - sum_{i - 1})</script><p>注意数据范围
         <category>nowcoder</category>
       </categories>
       <tags>
-        <tag>前缀和</tag>
         <tag>贪心</tag>
         <tag>模拟</tag>
+        <tag>前缀和</tag>
         <tag>枚举</tag>
       </tags>
   </entry>
